@@ -1,0 +1,11 @@
+######### Account Statement Micro-Service ##############
+
+* Server port can be changed from application.properties
+
+* run "docker build -f Dockerfile -t <my-image-name> ." to create docker image
+
+* run "docker image ls", list will have newly created image
+
+* run "docker run -p port:port -t <my-image-name>" to run docker image 
+
+* swagger.json is available at http://localhost:port/accountStatement/swagger.json

@@ -1,0 +1,593 @@
+@font-face {
+	font-family: Museo Sans;
+}
+@font-face {
+	font-family: Adobe Caslon SC;
+}
+@font-face {
+	font-family: Adobe Caslon Pro;
+	font-weight:300;
+}
+@font-face {
+	font-family: Adobe Caslon Pro;
+	font-weight: 700;
+}
+@font-face {
+	font-family: Adobe Caslon Pro;
+	font-weight: 700;
+	font-style: italic;
+}
+@font-face {
+	font-family: Adobe Caslon Pro;
+	font-weight: 300;
+	font-style: italic;
+}
+@font-face {
+	font-family: Adobe Caslon Pro;
+	font-weight: 500;
+}
+@font-face {
+	font-family: Adobe Caslon Pro;
+	font-weight: 500;
+	font-style: italic;
+}
+
+
+body {
+	background: white;font-family: Museo Sans; font-weight:300; margin: 0;overflow:hidden;}
+
+/*#footer {*/
+	/*position: running(footer);*/
+	/*text-align: right;*/
+/*}*/
+
+
+@page{
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-right:0cm;
+	margin-top:1cm;
+	display:block;
+	overflow:hidden;
+
+	/*@bottom-right {*/
+		/*content: element(footer);*/
+	/*}*/
+}
+
+/*#pagenumber:before {*/
+	/*font-size: 8pt;*/
+	/*margin-left: 0.2cm;*/
+	/*font-family: Adobe Caslon Pro;*/
+	/*content: counter(page);*/
+/*}*/
+
+/*#pagecount:before {*/
+	/*font-size: 8pt;*/
+	/*font-family: Adobe Caslon Pro;*/
+	/*content: counter(pages);*/
+/*}*/
+
+
+page[size="A4"] { width: 21cm;height: 22.7cm; padding-bottom:2.6cm !important;}
+page[size="A4"][layout="portrait"] { width: 29.7cm;height: 21cm; }
+page[size="A3"] { width: 29.7cm;height: 42cm; }
+page[size="A3"][layout="portrait"] { width: 42cm;height: 29.7cm; }
+page[size="A5"] { width: 14.8cm;height: 21cm; }
+page[size="A5"][layout="portrait"] { width: 21cm;height: 14.8cm; }
+
+img {
+	display:block;
+	width:100%;
+}
+
+.coverPage {
+	text-align:center;
+	position: relative !important;
+}
+.coverPage .middleBlock {
+	position: relative;
+	top: 6.5cm;
+	text-align: center;
+	display: block;
+	width: 100%;
+	height: 22cm;
+}
+.coverPage .logoBlock {
+	width:3.5cm;
+	margin:1cm auto;
+}
+.coverPage .documentTitle {
+	width:5.3cm;
+	margin:0 auto;
+	margin-bottom:0.6cm;
+	padding:0.4cm 0.6cm;
+	border-bottom:0.001cm solid #c60c30;
+	text-transform:uppercase;
+	letter-spacing:0.1em;
+	line-height:2;
+	font-size: 12pt;
+	color: #8a8a8a;
+	font-family: Museo Sans;
+	font-weight: 300;
+}
+.coverPage .documentDate, .coverPage .companyName {
+	text-transform:uppercase;
+	margin-bottom:0.6cm;
+	letter-spacing:0.1em;
+	line-height:1;
+	font-size: 12pt;
+	color: #585555;
+	font-family: Museo Sans;
+	font-weight: 300;
+}
+.introPage {
+	text-align:center;
+	position:relative;
+}
+.introPage .middleBlock {
+	position:absolute;
+	width:9.8cm;
+	top:4.5cm;
+	left: 50%;
+	transform:translateX(-50%);
+}
+.introPage .logoBlock {
+	width:3.9cm;
+	margin:0cm auto;
+	margin-bottom:1.5cm;
+}
+.introPage .documentContent, .introPage .financeManager, .introPage .accountManager {
+	font-size:10pt;
+	line-height:20pt;
+	text-align:justify;
+	text-align-last: center;
+	font-family: Adobe Caslon Pro;
+	font-weight:300;
+}
+.introPage .documentContent p, .introPage .financeManager p, .introPage .accountManager p {
+	font-size:10pt;
+	line-height:16pt;
+	text-align:justify;
+	text-align-last: center;
+	margin-bottom: 0.8cm;
+}
+.mainPage .logoBlock {
+	width:3.5cm;
+	/*margin-top:3.5cm;*/
+	margin-left:7.5cm;
+	padding: 1.5cm 1.2cm 1.2cm 1.2cm;
+}
+.mainPage .companyName {
+	width:8cm;
+	margin:0 auto;
+	margin-bottom:0.5cm;
+	text-align:center;
+	box-sizing:border-box;
+	font-size:12pt;
+	line-height:24pt;
+	text-transform:uppercase;
+	letter-spacing:0.1em;
+	/* color: #8a8a8a; */
+}
+.mainPage .companyName hr {
+	display: block;
+	height: 0.001cm;
+	border: 0;
+	border-top: 0.001cm solid #c60c30;
+	padding: 0;
+}
+/*.mainPage .subheader hr {
+	border-top: 0.001cm solid #8a8a8a;
+}*/
+
+.buttons {
+	text-align:center;
+}
+.buttons a {
+	background: #c60c30;
+	display: inline-block;
+	text-align:center;
+	padding:0.3cm;
+	margin:0 0.2cm ;
+	font-size:7pt;
+	line-height:10pt;
+	text-transform:uppercase;
+	color: #FFF;
+	letter-spacing: 0.1em;
+	text-decoration:none;
+}
+.private {
+	position:absolute;
+	bottom: 0.5cm;
+	width:100%;
+	text-align:center;
+	font-size:7pt;
+	line-height:1;
+	text-transform:uppercase;
+	letter-spacing:0.5rem;
+	color: #8a8a8a;
+	font-family: Adobe Caslon SC;
+}
+
+.private.firpage-private {
+	top: 93%;
+	position: absolute;
+	letter-spacing:0.5em;
+}
+
+.mainPage .flightLogoBlock {
+	page-break-before: always;
+	width:3.5cm;
+	margin-top:0cm;
+	margin-left:7.5cm;
+	padding: 0cm 1.2cm 0.5cm 1.2cm;
+}
+.timeline {
+	width:11.6cm;
+	height:0.6cm;
+	border: 0.010cm solid #8a8a8a;
+	position:relative;
+	margin: 0 auto;
+	font-size: 8pt;
+	text-transform:uppercase;
+	margin-bottom: 3.4cm;
+	margin-top: -12px
+}
+.timeline::before {
+	content:"used";
+	left:0;
+	bottom:-0.4cm;
+	position:absolute;
+	font-size: 6pt;
+	text-transform:uppercase;
+	color:#8a8a8a !important;
+}
+.timeline::after {
+	content:"remaining";
+	right:0%;
+	bottom:-0.4cm;
+	position: absolute;
+	font-size: 6pt;
+	text-transform:uppercase;
+	color:#8a8a8a !important;
+}
+.timeline .used {
+	position: inherit;
+	background-color: #8a8a8a;
+	height: 0.45cm;
+	color:#FFF;
+	overflow:hidden;
+	white-space:nowrap;
+	z-index:99999999;
+	padding-top:0.15cm !important;
+}
+.timeline .usedBack {
+	height: 0.4cm !important;
+	position: absolute;
+	overflow: hidden;
+	white-space: nowrap;
+	padding-top: 0.15cm;
+	padding-left: 0.25cm;
+	color: #8a8a8a !important;
+	box-sizing: border-box !important;
+	left: 0px !important;
+	top: 0px !important;
+	z-index: 9999999 !important;
+	width: 100%;
+}
+.subTitle {
+	 text-transform:uppercase;
+	 text-align:center;
+	 font-size: 7pt;
+	 letter-spacing:0.1em;
+	 line-height:16pt;
+	 color:#8a8a8a;
+	 margin-top:0.4cm;
+}
+.subTitleTo {
+	text-transform:uppercase;
+	text-align:center;
+	font-size: 7pt;
+	letter-spacing:0.1em;
+	line-height:16pt;
+	color: #585555 !important;
+	margin-top:0.4cm;
+}
+
+.subTitleRemainingHoursTo {
+	text-transform:uppercase;
+	text-align:center;
+	font-size: 5pt;
+	letter-spacing:0.1em;
+	line-height:16pt;
+	color:#8a8a8a;
+	margin-top:0.4cm;
+}
+
+
+.subTitleMainTo {
+	text-transform:uppercase;
+	text-align:center;
+	font-size: 7pt;
+	letter-spacing:0.1em;
+	line-height:16pt;
+	margin-top:0.4cm;
+}
+.productDetails {
+	text-transform:uppercase;
+	text-align:center;
+	font-size:12pt;
+	line-height:24pt;
+	color: #585555 !important;
+	font-family: Museo Sans;
+}
+.mainPage .companyName {
+	width:9cm;
+	margin:0 auto;
+	margin-bottom:0.5cm;
+	text-align:center;
+	box-sizing:border-box;
+	font-size:12pt;
+	line-height:24pt;
+	text-transform:uppercase;
+	letter-spacing:0.1em;
+	color: #8a8a8a;
+	font-family: Museo Sans;
+}
+.mainPage .companyName hr {
+	display: block;
+	height: 0.001cm;
+	border: 0;
+	border-top: 0.001cm solid #c60c30;
+	padding: 0;
+}
+.mainPage .subheader hr {
+	font-family: Museo Sans;
+	border-top: 0cm solid #8a8a8a;
+}
+
+.buttons {
+	text-align:center;
+}
+.buttons a {
+	background: #c60c30;
+	display: inline-block;
+	text-align:center;
+	padding:0.3cm;
+	margin:0 0.2cm ;
+	font-size:7pt;
+	line-height:10pt;
+	text-transform:uppercase;
+	color: #FFF;
+	letter-spacing: 0.1em;
+	text-decoration:none;
+}
+.footer {
+	height: 3cm;
+	background: #ececec;
+	color: #8a8a8a;
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	width: 100%;
+	page-break-after: always;
+}
+.footer .accinfo {
+	float:left;
+	padding-left:1.8cm;
+	padding-top: 0.2cm;
+	width:40%;
+	box-sizing:border-box;
+	font-size:8pt;
+	line-height:10pt;
+	color: #8a8a8a;
+	font-family: Adobe Caslon Pro;
+}
+.footer .vjinfo {
+	float:right;
+	padding-right:1.8cm;
+	padding-top: 0.2cm;
+	width:40%;
+	box-sizing:border-box;
+	font-size:8pt;
+	line-height:10pt;
+	text-align:right;
+	font-family:Adobe Caslon Pro;
+	color: #8a8a8a;
+}
+.footer .title {
+	font-size: 10pt;
+	line-height: 1;
+	text-transform:uppercase;
+	letter-spacing:0.1em;
+	margin-bottom:0.2cm;
+	/*increased margin from top*/
+	margin-top: 0.4cm;
+	font-family: Museo Sans;
+	display:block;
+}
+.flightList {
+	width:16.5cm;
+	margin: 0 auto;
+	margin-top:0cm !important;
+}
+.flightList table {
+	width: 100%;
+	border: 1px solid #b3adad !important; /*darker border color*/
+	margin-bottom: 0.15cm;
+	text-transform: lowercase;
+	letter-spacing:0.06em;
+	font-family: Adobe Caslon SC;
+}
+.flightList table thead {
+	background: #ececec;
+}
+.flightList td {
+	padding:0.2cm 0.2cm;
+	font-size: 9pt;
+	line-height:1.2;
+	width:20%;
+	box-sizing:border-box;
+}
+.flightList .paxRow td {
+	border-bottom: 0.001cm solid #cac2c2 !important;
+	color: #8a8a8a;
+}
+.flightList .legRow td {
+	font-size: 8pt;
+	text-align:center;
+	padding-bottom:0.10cm;
+	color: #8a8a8a;
+}
+.flightList .statRow td {
+	text-align:center;
+	padding-top:0;
+	color: #8a8a8a;
+}
+.flightListResultLabel {
+	text-align:right;
+	width:40%;
+	line-height:1em;
+	padding-top:0.05cm;
+	padding-bottom:0.2cm;
+	color:#585555;
+}
+.flightListResultValue {
+	text-align:center;
+	border:solid 0.001cm #585555;
+	background:#ececec;
+	padding-top:0.05cm;
+	padding-bottom:0.2cm;
+	color:#585555;
+}
+.additionalCharges {
+	width:16.5cm;
+	margin: 0 auto;
+	margin-top:0.1cm;
+}
+
+.additionalCharges table {
+	width: 100%;
+	text-transform: uppercase;
+	text-transform: lowercase;
+	letter-spacing:0.08em;
+	font-family: Adobe Caslon SC;
+	border: 1px solid #b3adad !important;
+	-fs-table-paginate: paginate;
+}
+.additionalCharges table thead {
+	background: #ececec;
+}
+.additionalCharges td {
+	padding:0.2cm;
+	font-size: 9pt;
+	line-height:1;
+	box-sizing:border-box;
+	height:40px;
+	border-collapse:collapse;
+	text-align:center;
+	color:#585555 !important;
+}
+.additionalChargesResultLabel {
+	text-align:right;
+	width:40%;
+	line-height:1.5em;
+	padding-top:0.2cm;
+	border-top:none;
+	border-right:none;
+	padding-bottom:0.2cm;
+	color:#585555;
+}
+.additionalChargesResultValue {
+	width:20%;
+	text-align:center;
+	border:solid 0.001cm #585555;
+	background:#ececec;
+	padding-top:0.2cm;
+	padding-bottom:0.2cm;
+	color:#585555;
+}
+
+.newsStory {
+	width:100%;
+	margin-bottom:0.5cm;
+	padding-left:3cm;
+	padding-right:3cm;
+	box-sizing:border-box;
+}
+.newsStory .discoverBox, .newsStory .pictureBox	 {
+	width:50%;
+	box-sizing:border-box;
+	text-align:center;
+	position:relative;
+}
+.newsStory .pictureBox {
+	position:absolute;
+	right:0px;
+}
+.newsStory .discoverBox {
+	letter-spacing:0.2em;
+	font-size:12pt;
+	text-transform: uppercase;
+	text-align:center;
+	box-sizing: border-box;
+	position:absolute;
+	height:0;
+	left:0px;
+}
+.newsStory .discoverBox .title {
+	font-size:16pt;
+	display:block;
+	margin-bottom:0.3cm;
+}
+.newsStory .pictureBox img {
+	width:100%;
+}
+.newsStory .pictureBox .caption {
+	position: absolute;
+	bottom:0px;
+	left:0px;
+	z-index: 9999;
+	text-transform: uppercase;
+	letter-spacing:0.2em;
+	font-size:13pt;
+	color:#FFF;
+	width:100%;
+	text-align:center;
+	padding:0.5cm;
+	box-sizing:border-box;
+}
+.newsStory .pictureBox .overlay {
+	position: absolute;
+	bottom:0px;
+	left:0px;
+	top:0px;
+	right:0px;
+	background: rgba(0,0,0,0.5);
+	z-index: 999;
+	text-transform: uppercase;
+	letter-spacing:0.2em;
+	font-size:13pt;
+	color:#FFF;
+}
+
+.flightSubHeading {
+	font-family:Museo Sans;
+	color:#8a8a8a;
+	font-size:12pt;
+}
+.aircraftType {
+	font-family:Adobe Caslon Pro;
+	color:#8a8a8a;
+}
+
+table,
+table tr td,
+table tr th {
+	page-break-inside: avoid;
+}
+
+.newPage {
+	page-break-after: always;
+}

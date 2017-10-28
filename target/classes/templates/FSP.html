@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Statement</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" th:href="${styleSheet}"/>
+</head>
+<body>
+<!-- <page size="A4" class="introPage">
+	<div class="middleBlock">
+		<div class="logoBlock">
+			<img th:attr="src=${logo}" alt="VistaJet"/>
+		</div>
+		<div class="documentContent" style="text-align:justify;">
+			<p>Voloriatio,</p>
+			<p>Tur sa quias susae ligeniatem quaspie ndundunt laboresto verio conseque landentem reprate et earum ratur? Qui nihillaccum saes dit exped et qui at ventem sustinv enimet quodis eum hilit dollabor atur, sum volorent dem qui con nis everum evelecus. Quostem. Ed qui cone venda nus evendi ulla sani dolut eturem</p>
+			<p>Sus aut opta coreruptat eumquatio tem. Et estecae reictat. Ris vel id et venda non cusdae nempore cum escil ius endiciatiae nos nonsenis moloreium vollant hitia porupta sitatum alit velit molo incient, temodiate nullandam ventibu sciur, te dolorporit, sinullique cor aut qui vento diciis quo maximil lorest aspis dolorerum qui berferatio ea voles ea quis aut laborrum in pro occae dolesequi odi aut vendest eventia corepuda qui te rest autem dollitatur accullaut quo que di quate doluptatem est laute perores pre ius, aut dis exeribe rnatqui aspellupid quisquam, ad magnihi cimaiorunt pre nit, corro commolorum non nos ex et.</p>
+		</div>
+		<div class="financeManager">
+			<p>Best regards,<br/>
+			<span th:text="${financeDirectorFirstName}">[FirstName]</span> <span th:text="${financeDirectorLastName}">[LastName]</span><br/>
+			<i><span th:text="${financeDirectorRole}">[Role]</span></i><br/>
+			<span th:text="${financeDirectorPhoneNumber}">[Number]</span> | <span th:text="${financeDirectorEmailAddress}">[Email]</span></p>
+		</div>
+		<div class="accountManager">
+			<p><span th:text="${customerExperiencePersonFirstname}">[FirstName]</span> <span th:text="${customerExperiencePersonLastName}">[LastName]</span><br/>
+			<i><span th:text="${customerExperiencePersonRole}">[Role]</span></i><br/>
+			<span th:text="${customerExperiencePersonPhoneNumber}">[Number]</span> | <span th:text="${customerExperiencePersonEmailAddress}">[Email]</span></p>
+		</div>
+	</div>
+</page> -->
+
+<page size="A4" class="mainPage">
+	<div class="logoBlock">
+		<img th:attr="src=${logo}" alt="VistaJet"/>
+	</div>
+	<div class="companyName">
+		<span th:text="${companyName}">[Company Name]</span>
+		<hr/>
+		<span th:text="${accountSummaryStartDate}">[Account Summary]</span><span class="subTitleMainTo"> TO </span><span th:text="${accountSummaryEndDate}">[Account Summary]</span>
+	</div>
+	<div class="subTitle">
+		program
+	</div>
+	<div class="productDetails">
+		<span th:text="${contractAircraftType}">[Aircraft type]</span> | <span id="contractlength"><span th:text="${totalYearCount}">[1]</span></span> <span th:text="${totalYearString}">[year]</span><br/>&nbsp;
+	</div>
+	<div class="subTitle">
+		contractual Term
+	</div>
+	<div class="productDetails">
+		year <span th:text="${yearCount}">[Current Year]</span> | <span th:text="${contractStartDate}">[Contract Start Date]</span><span class="subTitleTo"> TO </span><span th:text="${contractEndDate}"></span><br/>&nbsp;
+	</div>
+	<div class="subTitle">
+		hours allocated
+	</div>
+	<div class="productDetails">
+		<span th:text="${hoursCount}">[Hours Count]</span><br/>&nbsp;
+	</div>
+	<div class="subTitle">
+		total hours billed this term
+	</div>
+	<div class="productDetails">
+		<span th:text="${totalHoursBilledInYear}">[Total hours billed]</span><br/>&nbsp;
+	</div>
+	<div class="subTitle">
+		<span>Total hours remaining this term</span>
+		<span class="subTitleRemainingHoursTo"> AS AT </span>
+		<span th:text="${accountSummaryEndDate}"></span>
+	</div>
+	<div class="productDetails">
+		<span th:text="${totalHoursRemaining}">[Total hours remaining]</span><br/>&nbsp;
+	</div>
+	<div class="subTitle">
+		contract timeline<br/>&nbsp;
+	</div>
+	<div class="timeline">
+		<div class="used" th:style="|width:${percentUsed}|">
+			<span style="padding-left: 0.25cm;" th:text="${valueUsed}"></span>
+			<span style="padding-left: 306px;" th:text="${valueRemaining}"></span>
+		</div>
+		<div class="usedBack">
+			<span th:text="${valueUsed}"></span>
+			<span style="padding-left: 306px;" th:text="${valueRemaining}"></span>
+		</div>
+	</div>
+
+	<div class="footer" id="footer">
+		<div class="accinfo">
+			<span th:if="${companyName != null}" class="title" th:text="${companyName}"></span>
+			<span th:if="${companyAddress != null}" th:text="${companyAddress}"></span>
+		</div>
+		<div class="vjinfo" th:if="${customerExperiencePersonFirstname != null}">
+				<span class="title">
+					<span th:text="${customerExperiencePersonFirstname}">[FirstName]</span>
+					<span th:text="${customerExperiencePersonLastName}">[LastName]</span>
+				</span>
+			<span th:text="${customerExperiencePersonRole}">[Role]</span><br/>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber)}" th:text="${customerExperiencePersonPhoneNumber}">[Number]</span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber) and !#strings.isEmpty(customerExperiencePersonEmailAddress)}"> | </span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonEmailAddress)}" th:text="${customerExperiencePersonEmailAddress}">[Email]</span>
+		</div>
+		<div class="private">
+			[private and confidential]
+		</div>
+	</div>
+</page>
+<page th:if="${!#lists.isEmpty(flightList)}" size="A4" class="mainPage">
+	<div class="flightLogoBlock">
+		<img th:attr="src=${logo}" alt="VistaJet"/>
+	</div>
+	<div class="companyName subheader" style="font-size:7pt;">
+		Flights summary
+		<!-- <hr/> --> <!-- line removed -->
+		<br/>
+		<span><span class="flightSubHeading" th:text="${flightSummaryMonth}">[Month]</span> <span class="flightSubHeading" th:text="${flightSummaryYear}">[Year]</span><br/><span class="aircraftType" th:text="${aircraftType}">[Aircraft Type]</span></span>
+	</div>
+	<div class="flightList">
+
+		<span th:each="leg,iter : ${flightList}">
+            <table style="height: 135px;" cellspacing="0">
+				<thead>
+					<tr style="color:#585555;">
+						<td colspan="5"><span th:text="${leg.flightDate}">[Flight Date]</span> |
+							<span th:text="${leg.departureAirportPlace}">[Departure place]</span>
+							<span th:text="${leg.departure}">[Departure]</span> -
+							<span th:text="${leg.arrivalAirportPlace}">[Arrival place]</span>
+							<span th:text="${leg.arrival}">[Arrival]</span> </td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="paxRow">
+						<td colspan="5">
+							<span th:text="'passengers: ' + ${leg.passengerString}">[Passengers]</span>
+						</td>
+					</tr>
+					<tr class="legRow">
+						<td>Distance</td>
+						<td>Aircraft</td>
+						<td>Hours flown</td>
+						<td>Interchange</td>
+						<td>Billed Hours</td>
+					</tr>
+					<tr class="statRow">
+						<td><span th:text="${leg.distance}">[Distance]</span></td>
+						<td><span th:text="${leg.aircraftTypeName}">[Aircraft Code]</span></td>
+						<td><span th:text="${leg.hoursFlown}">[Hours flown]</span></td>
+						<td><span th:text="${leg.interchangeRate}">[Interchange]</span></td>
+						<td><span th:text="${leg.billedHours}">[Billed Hours]</span></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="newPage" th:if="${((iter.count+1)%6 == 0) and (iter.count != iter.size)}"></div>
+		</span>
+		<table style="border-color:#FFF;margin-top:0.4cm; border: 0px solid #b3adad !important;">
+			<tr>
+				<td></td>
+				<td></td>
+				<td colspan="2" class="flightListResultLabel">total billed<br/>flight hours</td>
+				<td class="flightListResultValue"><span class="title" th:text="${totalBilledFlightHours}">[Total billed flight hours]</span></td>
+			</tr>
+		</table>
+	</div>
+	<div class="footer" id="footer">
+		<div class="accinfo">
+			<span th:if="${companyName != null}" class="title" th:text="${companyName}"></span>
+			<span th:if="${companyAddress != null}" th:text="${companyAddress}"></span>
+		</div>
+		<div class="vjinfo" th:if="${customerExperiencePersonFirstname != null}">
+				<span class="title">
+					<span th:text="${customerExperiencePersonFirstname}">[FirstName]</span>
+					<span th:text="${customerExperiencePersonLastName}">[LastName]</span>
+				</span>
+			<span th:text="${customerExperiencePersonRole}">[Role]</span><br/>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber)}" th:text="${customerExperiencePersonPhoneNumber}">[Number]</span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber) and !#strings.isEmpty(customerExperiencePersonEmailAddress)}"> | </span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonEmailAddress)}" th:text="${customerExperiencePersonEmailAddress}">[Email]</span>
+		</div>
+		<div class="private">
+			[private and confidential]
+		</div>
+	</div>
+</page>
+
+<page th:if="${!#lists.isEmpty(additionalChargesHoursList)}" size="A4" class="mainPage">
+	<div class="flightLogoBlock">
+		<img th:attr="src=${logo}" alt="VistaJet"/>
+	</div>
+	<div class="companyName subheader" style="font-size:7pt;">
+		Additional flight charges
+		<br/>
+		<span><span class="flightSubHeading" th:text="${additionalChargesHoursSummaryMonth}">[Month]</span> <span class="flightSubHeading" th:text="${additionalChargesHoursSummaryYear}">[Year]</span><br/><span class="aircraftType" th:text="${additionalChargesHoursAircraftType}">[Aircraft Type]</span></span>
+	</div>
+	<div class="additionalCharges">
+		<table cellspacing="0" cellpadding="0" border="0">
+			<thead>
+			<tr>
+				<td style="width:15%">Flight date</td>
+				<td style="width:15%">Route</td>
+				<td>Order</td>
+				<td>Additional Charges</td>
+				<td style="width:15%;">Billed Hours</td>
+			</tr>
+			</thead>
+			<tbody>
+			<span th:each="chargeRecord,iter : ${additionalChargesHoursList}">
+				<tr>
+					<td><span th:text="${chargeRecord.acFlightDate}">[Flight Date]</span></td>
+					<td><span th:text="${chargeRecord.acFlightDescription}">[Flight Description]</span></td>
+					<td><span th:text="${chargeRecord.acOrderId}">[Order No]</span></td>
+					<td><span th:text="${chargeRecord.acDescription}">[Description]</span></td>
+					<td><span th:text="${chargeRecord.acBilledHours}">[Hours Billed]</span></td>
+				</tr>
+				<tr class="newPage" th:if="${((iter.count+4)%20 == 0) and (iter.count != iter.size)}"></tr>
+			</span>
+			</tbody>
+		</table>
+		<table cellspacing="0" cellpadding="0" style="border-color:#FFF;padding-bottom:2.8cm;margin-top:1cm; border: 0px solid #b3adad !important">
+			<tr>
+				<td style="border-left: none;border-right:none;border-top:none;"></td>
+				<td style="border-left: none;border-right:none;border-top:none;"></td>
+				<td colspan="2" class="additionalChargesResultLabel">total billed hours</td>
+				<td class="additionalChargesResultValue"><span th:text="${additionalChargesTotalBilledHours}">[Total Billed Hours]</span></td>
+			</tr>
+		</table>
+		<!-- </table> -->
+	</div>
+	<div class="footer" id="footer">
+		<div class="accinfo">
+			<span th:if="${companyName != null}" class="title" th:text="${companyName}"></span>
+			<span th:if="${companyAddress != null}" th:text="${companyAddress}"></span>
+		</div>
+		<div class="vjinfo" th:if="${customerExperiencePersonFirstname != null}">
+				<span class="title">
+					<span th:text="${customerExperiencePersonFirstname}">[FirstName]</span>
+					<span th:text="${customerExperiencePersonLastName}">[LastName]</span>
+				</span>
+			<span th:text="${customerExperiencePersonRole}">[Role]</span><br/>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber)}" th:text="${customerExperiencePersonPhoneNumber}">[Number]</span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber) and !#strings.isEmpty(customerExperiencePersonEmailAddress)}"> | </span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonEmailAddress)}" th:text="${customerExperiencePersonEmailAddress}">[Email]</span>
+		</div>
+		<div class="private">
+			[private and confidential]
+		</div>
+	</div>
+</page>
+
+
+<page th:if="${!#lists.isEmpty(additionalChargesList)}" size="A4" class="mainPage">
+	<div class="flightLogoBlock">
+		<img th:attr="src=${logo}" alt="VistaJet"/>
+	</div>
+	<div class="companyName subheader" style="font-size:7pt;">
+		Additional charges
+		<!-- <hr/> --> <!-- Line removed -->
+		<br/>
+		<span><span class="flightSubHeading" th:text="${additionalChargesSummaryMonth}">[Month]</span> <span class="flightSubHeading" th:text="${additionalChargesSummaryYear}">[Year]</span><br/><span class="aircraftType" th:text="${additionalAircraftType}">[Aircraft Type]</span></span>
+	</div>
+	<div class="additionalCharges">
+		<table cellspacing="0" cellpadding="0" border="0">
+			<thead>
+			<tr>
+				<td style="width:15%;">Flight date</td>
+				<td style="width:15%;">Route</td>
+				<td>Order</td>
+				<td>Description</td>
+				<td>Cost</td>
+			</tr>
+			</thead>
+			<tbody>
+			<span th:each="chargeRecord,iter : ${additionalChargesList}">
+					<tr>
+						<td><span th:text="${chargeRecord.acFlightDate}">[Flight Date]</span></td>
+						<td><span th:text="${chargeRecord.acFlightDescription}">[Flight Description]</span></td>
+						<td><span th:text="${chargeRecord.acOrderId}">[Order No]</span></td>
+						<td><span th:text="${chargeRecord.acDescription}">[Description]</span></td>
+						<td><span th:text="${chargeRecord.acCost}">[Cost]</span></td>
+					</tr>
+					<tr class="newPage" th:if="${((iter.count+5)%20 == 0) and (iter.count != iter.size)}"></tr>
+				</span>
+			</tbody>
+		</table>
+		<table th:each="currencyInstance : ${currencyTotalMap}" cellspacing="0" cellpadding="0" style="border-color:#FFF;margin-top:0.45cm; border: 0px solid #b3adad !important">
+			<tr>
+				<td style="border-left: none;border-right:none;border-top:none;"></td>
+				<td style="border-left: none;border-right:none;border-top:none;"></td>
+				<td colspan="2" class="additionalChargesResultLabel"><span th:text="${'total cost ' + currencyInstance.key}"></span></td>
+				<td class="additionalChargesResultValue"><span th:text="${currencyInstance.value}">[Total Cost]</span></td>
+			</tr>
+		</table>
+		<!-- </table> -->
+	</div>
+	<div class="footer" id="footer">
+		<div class="accinfo">
+			<span th:if="${companyName != null}" class="title" th:text="${companyName}"></span>
+			<span th:if="${companyAddress != null}" th:text="${companyAddress}"></span>
+		</div>
+		<div class="vjinfo" th:if="${customerExperiencePersonFirstname != null}">
+				<span class="title">
+					<span th:text="${customerExperiencePersonFirstname}">[FirstName]</span>
+					<span th:text="${customerExperiencePersonLastName}">[LastName]</span>
+				</span>
+			<span th:text="${customerExperiencePersonRole}">[Role]</span><br/>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber)}" th:text="${customerExperiencePersonPhoneNumber}">[Number]</span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonPhoneNumber) and !#strings.isEmpty(customerExperiencePersonEmailAddress)}"> | </span>
+			<span th:if="${!#strings.isEmpty(customerExperiencePersonEmailAddress)}" th:text="${customerExperiencePersonEmailAddress}">[Email]</span>
+		</div>
+		<div class="private">
+			[private and confidential]
+		</div>
+	</div>
+</page>
+</body>
+</html>

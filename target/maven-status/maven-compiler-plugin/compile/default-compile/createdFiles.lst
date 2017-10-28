@@ -1,0 +1,9 @@
+com\journal\endpoint\Endpoint.class
+com\journal\util\EntityHelper.class
+com\journal\util\FileServiceClient.class
+com\journal\util\FileServiceClientImpl.class
+com\journal\util\ResponseStatusCodeEnum.class
+com\journal\dto\ResponseHeaderDto.class
+com\journal\JournalApplication.class
+com\journal\util\GlobalConstants.class
+com\journal\config\JerseyConfig.class
