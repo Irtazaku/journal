@@ -32,7 +32,6 @@ public class JerseyConfig extends ResourceConfig {
 	}
 	
 	private void configureSwagger() {
-		// Available at http://localhost:port/accountStatement/swagger.json
 		this.register(ApiListingResource.class);
 		this.register(SwaggerSerializers.class);
 

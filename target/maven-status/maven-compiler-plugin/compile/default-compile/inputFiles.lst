@@ -1,9 +1,13 @@
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\User.java
 c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\ResponseHeaderDto.java
-c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\GlobalConstants.java
 c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\FileServiceClientImpl.java
 c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\config\JerseyConfig.java
-c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\EntityHelper.java
 c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\JournalApplication.java
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\FileServiceClient.java
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\FileRepository.java
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\UserRepository.java
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\GlobalConstants.java
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\EntityHelper.java
 c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\ResponseStatusCodeEnum.java
 c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\endpoint\Endpoint.java
-c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\FileServiceClient.java
+c:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\File.java
