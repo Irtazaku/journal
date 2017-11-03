@@ -2,12 +2,17 @@ C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\ResetPa
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\User.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\UserResponseDto.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\ResponseHeaderDto.java
+C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\JournalResponseDto.java
+C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\JournalDto.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\FileServiceClientImpl.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\config\JerseyConfig.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\UserDto.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\JournalApplication.java
+C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\FileDto.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\FileServiceClient.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\FileRepository.java
+C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\JournalRepository.java
+C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\Journal.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\entity\UserRepository.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\GlobalConstants.java
 C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\util\EntityHelper.java

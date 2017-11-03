@@ -1,11 +1,7 @@
 package com.journal.endpoint;
 
-import com.journal.dto.ResetPasswordRequestDto;
-import com.journal.dto.UserDto;
-import com.journal.dto.UserResponseDto;
-import com.journal.entity.FileRepository;
-import com.journal.entity.User;
-import com.journal.entity.UserRepository;
+import com.journal.dto.*;
+import com.journal.entity.*;
 import com.journal.util.EntityHelper;
 import com.journal.util.ResponseStatusCodeEnum;
 import io.swagger.annotations.Api;
@@ -42,6 +38,8 @@ public class Endpoint {
 	private UserRepository userRepository;
 	@Autowired
 	private FileRepository fileRepository;
+    @Autowired
+	private JournalRepository journalRepository;
 
 	@GET
 	@Path("/info")
@@ -154,6 +152,48 @@ public class Endpoint {
         }
 
         return "Saved";
+    }
+
+    @GET
+    @Path("/getJournalById")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public JournalResponseDto getJournalById(@QueryParam("journalId") Integer journalId){
+        JournalResponseDto response = new JournalResponseDto();
+        response.setJournalDto(new JournalDto(null, null, null, null, null, null, null, new FileDto(null, null, null, null) , new FileDto(null, null, null, null) , null));
+        try {
+            Journal journal= journalRepository.findOne(journalId);
+            if(EntityHelper.isSet(journal.getId())){
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+                response.setJournalDto(journal.asDto());
+            }
+        } catch (Exception e) {
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+        }
+        return response;
+    }
+
+    @POST
+    @Path("/addJournal")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    public JournalResponseDto addJournalById(JournalDto journalDto){
+        JournalResponseDto response = new JournalResponseDto();
+        //response.setJournalDto(new JournalDto(null, null, null, null, null, null, null, new FileDto(null, null, null, null) , new FileDto(null, null, null, null) , null));
+        try {
+            if(!EntityHelper.isSet(journalDto.getName()) || EntityHelper.isNull(journalDto.getJournal())){
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
+                return response;
+            }
+            Journal journal= journalDto.asEntity();
+            Journal savedJournal = journalRepository.save(journal);
+            if(EntityHelper.isSet(savedJournal.getId())){
+                response.setJournalDto(savedJournal.asDto());
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+            }
+        } catch (Exception e) {
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+        }
+        return response;
     }
 
 

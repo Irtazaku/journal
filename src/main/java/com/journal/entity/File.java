@@ -1,7 +1,12 @@
 package com.journal.entity;
 
 
-import javax.persistence.*;
+import com.journal.dto.FileDto;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created by Venturedive on 10/29/2017.
@@ -16,6 +21,16 @@ public class File {
     private String fileName;
     private String fileKey;
     private String type;
+
+    public File() {
+    }
+
+    public File(Integer id, String fileName, String fileKey, String type) {
+        this.id = id;
+        this.fileName = fileName;
+        this.fileKey = fileKey;
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
@@ -47,5 +62,9 @@ public class File {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public FileDto asDto() {
+        return new FileDto(this.id, this.fileName, this.fileKey, this.type);
     }
 }

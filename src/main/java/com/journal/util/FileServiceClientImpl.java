@@ -9,9 +9,7 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.util.URIUtil;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,12 +21,12 @@ import java.util.logging.Logger;
  */
 
 @Component
-@Service("fileServiceClient")
+//@Service("fileServiceClient")
 public class FileServiceClientImpl implements FileServiceClient {
 
     private static final Logger LOGGER = Logger.getLogger(FileServiceClientImpl.class.getName());
 
-    @Value("${external.fileService.url}")
+    //@Value("${external.fileService.url}")
     private String fileServiceUrl;
 
 
