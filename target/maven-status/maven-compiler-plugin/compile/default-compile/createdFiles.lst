@@ -2,12 +2,15 @@ com\journal\endpoint\Endpoint.class
 com\journal\entity\FileRepository.class
 com\journal\util\EntityHelper.class
 com\journal\util\ResponseStatusCodeEnum.class
+com\journal\dto\UserResponseDto.class
 com\journal\dto\ResponseHeaderDto.class
 com\journal\entity\UserRepository.class
+com\journal\dto\ResetPasswordRequestDto.class
 com\journal\entity\User.class
 com\journal\JournalApplication.class
 com\journal\util\FileServiceClient.class
 com\journal\util\FileServiceClientImpl.class
 com\journal\util\GlobalConstants.class
+com\journal\dto\UserDto.class
 com\journal\config\JerseyConfig.class
 com\journal\entity\File.class

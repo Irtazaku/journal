@@ -1,6 +1,8 @@
 package com.journal.entity;
 
 
+import com.journal.dto.UserDto;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,19 @@ public class User {
 
     private String username;
     private String password;
+    private String name;
+    private String email;
+
+    public User(){
+    }
+
+    public User(Integer id, String email, String username, String password, String name) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;
@@ -39,5 +54,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserDto asDto() {
+        return new UserDto(this.id, this.username, this.getPassword(), this.name, this.email);
     }
 }
