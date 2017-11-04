@@ -21,7 +21,9 @@ public class Journal {
     private String publisher;
     private Date date;
     private Integer numberOfViews;
+    @Lob
     private String Abstract;
+
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private File image;

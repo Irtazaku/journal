@@ -2,10 +2,12 @@ package com.journal.dto;
 
 import com.journal.entity.User;
 
+import java.io.Serializable;
+
 /**
  * Created by Venturedive on 11/09/2017.
  */
-public class UserDto {
+public class UserDto implements Serializable {
     private Integer id;
     private String username;
     private String password;

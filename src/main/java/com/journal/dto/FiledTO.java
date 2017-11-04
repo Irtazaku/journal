@@ -3,10 +3,12 @@ package com.journal.dto;
 
 import com.journal.entity.File;
 
+import java.io.Serializable;
+
 /**
  * Created by Venturedive on 10/29/2017.
  */
-public class FileDto {
+public class FileDto implements Serializable {
     private Integer id;
     private String fileName;
     private String fileKey;

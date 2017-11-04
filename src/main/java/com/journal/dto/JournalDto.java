@@ -3,13 +3,14 @@ package com.journal.dto;
 
 import com.journal.entity.Journal;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Venturedive on 10/29/2017.
  */
 
-public class JournalDto {
+public class JournalDto implements Serializable {
     private Integer id;
     private String name;
     private String fileKey;

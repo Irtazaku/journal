@@ -1,9 +1,11 @@
 package com.journal.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Venturedive on 11/09/2017.
  */
-public class ResponseHeaderDto {
+public class ResponseHeaderDto implements Serializable {
 
     public static final Integer STATUS_OK = 0;
     public static final String STATUS_OK_TEXT = "OK";

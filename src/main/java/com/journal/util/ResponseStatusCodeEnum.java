@@ -4,10 +4,10 @@ import com.journal.dto.ResponseHeaderDto;
 
 public enum ResponseStatusCodeEnum {
 
-	SUCCESS(ResponseHeaderDto.STATUS_OK, ResponseHeaderDto.STATUS_OK_TEXT, Boolean.TRUE),
-	ERROR(ResponseHeaderDto.STATUS_NOT_OK, ResponseHeaderDto.STATUS_NOT_OK_TEXT, Boolean.FALSE),
-	BAD_REQUEST(ResponseHeaderDto.STATUS_BAD_REQUEST, ResponseHeaderDto.STATUS_BAD_REQUEST_TEXT, Boolean.FALSE),
-	INVALID_LOGIN_DETAILS(ResponseHeaderDto.STATUS_INVALID_LOGIN_DETAILS, ResponseHeaderDto.STATUS_INVALID_LOGIN_DETAILS_TEXT, Boolean.FALSE);
+	SUCCESS(ResponseHeaderDto.STATUS_OK, ResponseHeaderDto.STATUS_OK_TEXT, Boolean.FALSE),
+	ERROR(ResponseHeaderDto.STATUS_NOT_OK, ResponseHeaderDto.STATUS_NOT_OK_TEXT, Boolean.TRUE),
+	BAD_REQUEST(ResponseHeaderDto.STATUS_BAD_REQUEST, ResponseHeaderDto.STATUS_BAD_REQUEST_TEXT, Boolean.TRUE),
+	INVALID_LOGIN_DETAILS(ResponseHeaderDto.STATUS_INVALID_LOGIN_DETAILS, ResponseHeaderDto.STATUS_INVALID_LOGIN_DETAILS_TEXT, Boolean.TRUE);
 
 	private Integer statusCode;
 	private String message;

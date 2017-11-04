@@ -1,9 +1,11 @@
 package com.journal.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Venturedive on 11/09/2017.
  */
-public class JournalResponseDto {
+public class JournalResponseDto implements Serializable {
     private ResponseHeaderDto responseHeaderDto;
     private JournalDto journalDto;
 
