@@ -2,38 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fbbe6c7-844f-4d70-97d6-95ed9d7268e1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/journal/entity/Article.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/ArticleDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/journal/entity/ArticleRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/ArticleResponseDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/ArticlesListResponseDto.java" />
-      <change type="MOVED" beforePath="C:\Users\Venturedive\Documents\FYP\journal\src\main\java\com\journal\dto\FiledTO.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/FileDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/endpoint/Endpoint.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/endpoint/Endpoint.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/FileDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/FileDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/entity/Journal.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/entity/Journal.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/JournalDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/JournalDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/JournalResponseDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/JournalResponseDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/ResetPasswordRequestDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/ResetPasswordRequestDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/ResponseHeaderDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/ResponseHeaderDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/util/ResponseStatusCodeEnum.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/util/ResponseStatusCodeEnum.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/UserDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/UserDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/journal/dto/UserResponseDto.class" afterPath="$PROJECT_DIR$/target/classes/com/journal/dto/UserResponseDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/journal.jar.original" afterPath="$PROJECT_DIR$/target/journal.jar.original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/journal.jar" afterPath="$PROJECT_DIR$/target/journal.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/endpoint/Endpoint.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/endpoint/Endpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/entity/Journal.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/entity/Journal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/dto/JournalDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/JournalDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/dto/JournalResponseDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/JournalResponseDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/dto/ResetPasswordRequestDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/ResetPasswordRequestDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/dto/ResponseHeaderDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/ResponseHeaderDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/util/ResponseStatusCodeEnum.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/util/ResponseStatusCodeEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/dto/UserDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/UserDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/journal/dto/UserResponseDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/journal/dto/UserResponseDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs.log" afterPath="$PROJECT_DIR$/logs.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="journal.iws" />
@@ -802,12 +770,12 @@
       <workItem from="1509477948793" duration="1907000" />
       <workItem from="1509512892849" duration="1001000" />
       <workItem from="1509648164646" duration="16543000" />
-      <workItem from="1509725460917" duration="15219000" />
+      <workItem from="1509725460917" duration="16846000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65432000" />
+    <option name="totallyTimeSpent" value="67059000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1378" height="744" extended-state="0" />
