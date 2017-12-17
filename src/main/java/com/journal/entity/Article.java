@@ -10,7 +10,18 @@ import java.util.Date;
  * Created by Venturedive on 10/29/2017.
  */
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+@Table(name = "articles")
+@NamedQueries({
+        @NamedQuery(name = "article.getArticleByArticleId",
+                query = " SELECT a" +
+                        " FROM Article a " +
+                        " WHERE a.id = :articleId "),
+        @NamedQuery(name = "article.getArticleListByUserId",
+                query = " SELECT a" +
+                        " FROM Article a " +
+                        " WHERE a.user.id = :userId ")
+})
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,15 +31,23 @@ public class Article {
     @Lob
     private String content;
 
-    private Date date;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "author_user_id", referencedColumnName = "id")
+    private User user;
+
+    private Boolean isPublished = false;
+
+    private Date createdDate;
 
     public Article() {
     }
 
-    public Article(String title, String content, Date date) {
+    public Article(String title, String content, User user, Boolean isPublished, Date createdDate) {
         this.title = title;
         this.content = content;
-        this.date = date;
+        this.user = user;
+        this.isPublished = isPublished;
+        this.createdDate = (createdDate == null) ? new Date() : createdDate;
     }
 
     public Integer getId() {
@@ -55,15 +74,31 @@ public class Article {
         this.content = content;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Boolean getIsPublished() {
+        return isPublished;
+    }
+
+    public void setIsPublished(Boolean isPublished) {
+        this.isPublished = isPublished;
     }
 
     public ArticleDto asDto(){
-        return new ArticleDto(this.id, this.title, this.content, this.date);
+        return new ArticleDto(this.id, this.title, this.content, this.user.asDto(), this.isPublished, this.createdDate);
     }
 }

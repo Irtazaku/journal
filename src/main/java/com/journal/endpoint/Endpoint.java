@@ -2,8 +2,9 @@ package com.journal.endpoint;
 
 import com.journal.dto.*;
 import com.journal.entity.*;
+import com.journal.util.ConstantsAndEnums.GlobalConstants;
+import com.journal.util.ConstantsAndEnums.ResponseStatusCodeEnum;
 import com.journal.util.EntityHelper;
-import com.journal.util.ResponseStatusCodeEnum;
 import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -13,7 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.ws.rs.*;
@@ -28,19 +28,18 @@ import java.util.Map;
 
 @Component
 @Path("1")
-//@Api(value = "Endpoint", produces = MediaType.APPLICATION_JSON_VALUE)
 public class Endpoint {
 
 	private static String UPLOADED_FOLDER = "C://journals//";
 
 	@Autowired
-	private UserRepository userRepository;
-	@Autowired
 	private FileRepository fileRepository;
     @Autowired
 	private JournalRepository journalRepository;
     @Autowired
-    private ArticleRepository articleRepository;
+    private UserManager  userManager;
+    @Autowired
+    private ArticleManager articleManager;
 
 	@GET
 	@Path("/info")
@@ -52,54 +51,51 @@ public class Endpoint {
 	}
 
 	@POST
-	@Path("/signup") // Map ONLY GET Requests
+	@Path("/signup")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
-	//@Consumes(MediaType.APPLICATION_JSON_VALUE)
+	@Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	public @ResponseBody
-	UserResponseDto addNewUser (@QueryParam("username") String username1,
-					  			@QueryParam("password") String password1,
-                                @FormDataParam("username") String username,
+	UserResponseDto addNewUser (@FormDataParam("username") String username,
                                 @FormDataParam("password") String password,
                                 @FormDataParam("name") String name,
-                                @FormDataParam("email") String email
-                                //@FormDataParam("") MultiPart multiPart,
-                                //HttpServletRequest request,
-								/*UserDto requestedUser*/) {
+                                @FormDataParam("email") String email,
+                                @DefaultValue(GlobalConstants.USER_TYPE_USER) @FormDataParam("type") String type) {
 		UserResponseDto response = new UserResponseDto();
 		response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
-		/*if(!EntityHelper.isSet(requestedUser.getUsername()) || !EntityHelper.isSet(requestedUser.getUsername())){
+		if(!EntityHelper.isSet(username) || !EntityHelper.isSet(password) || !EntityHelper.isSet(name) || !EntityHelper.isSet(email)){
 			response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
 			return response;
-		}*/
-		User n = new User();//requestedUser.asEntity();
-       // User n = new User(null, email, username, password, name);
-		User user = userRepository.save(n);
+		}
+		User n = new User(email, username, password, name, type);
+       User user = userManager.persist(n);
 		if(EntityHelper.isSet(user.getId())){
 			response.setUserDto(user.asDto());
+            response.getUserDto().setPassword(null);
 			response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
 		}
 		return response;
 	}
 
     @POST
-    @Path("/resetPassword") // Map ONLY GET Requests
+    @Path("/resetPassword")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
-    UserResponseDto addNewUser (ResetPasswordRequestDto requestDto) {
+    UserResponseDto addNewUser (@HeaderParam("token") String token,
+                                ResetPasswordRequestDto requestDto) {
         UserResponseDto response = new UserResponseDto();
         response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
-        if(!EntityHelper.isSet(requestDto.getOldPassword()) || !EntityHelper.isSet(requestDto.getOldPassword()) || !EntityHelper.isSet(requestDto.getUserId())){
+        if(!EntityHelper.isSet(requestDto.getOldPassword()) || !EntityHelper.isSet(requestDto.getNewPassword()) || !EntityHelper.isSet(requestDto.getUserId())){
             response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
             return response;
         }
-        User n = userRepository.findOne(requestDto.getUserId());
+        User n = userManager.getUserByUserId(requestDto.getUserId());
         if(!n.getPassword().equals(requestDto.getOldPassword())){
             response.setResponseHeaderDto(ResponseStatusCodeEnum.INVALID_LOGIN_DETAILS.getHeader());
             return response;
         }
         n.setPassword(requestDto.getNewPassword());
-        User user = userRepository.save(n);
+        User user = userManager.merge(n);
         if(EntityHelper.isSet(user.getId())){
             response.setUserDto(user.asDto());
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
@@ -115,16 +111,16 @@ public class Endpoint {
 								@QueryParam("password") String password){
 		UserResponseDto response = new UserResponseDto();
 		response.setResponseHeaderDto(ResponseStatusCodeEnum.INVALID_LOGIN_DETAILS.getHeader());
-		List<User> userList = (List<User>) userRepository.findAll();
-		if(userList != null) {
-			for (User user : userList) {
-				if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-					response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
-					response.setUserDto(user.asDto());
-					break;
-				}
-			}
-		}
+        if(!EntityHelper.isSet(username) || !EntityHelper.isSet(password)) {
+            User user = userManager.getUserByUsernameAndPassword(username, password);
+            if (EntityHelper.isNotNull(user)) {
+
+                response.setUserDto(user.asDto());
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+
+            }
+        }
+
 		return response;
 	}
 
@@ -154,7 +150,6 @@ public class Endpoint {
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public JournalResponseDto addJournalById(JournalDto journalDto){
         JournalResponseDto response = new JournalResponseDto();
-        //response.setJournalDto(new JournalDto(null, null, null, null, null, null, null, new FileDto(null, null, null, null) , new FileDto(null, null, null, null) , null));
         try {
             if(!EntityHelper.isSet(journalDto.getName()) || EntityHelper.isNull(journalDto.getJournal())){
                 response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
@@ -192,31 +187,24 @@ public class Endpoint {
 				.body(resource);
 	}
 
+    @Path("/postfile")
     @POST
-    @Path("/uploadFile")
-    @Produces(MediaType.APPLICATION_JSON_VALUE)
-    //@Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseHeaderDto singleFileUpload(//@FormDataParam("file") FormDataContentDisposition disposition,
-                                              //@RequestParam("file") FileInputStream fileStream,
-                                   @RequestParam("file") InputStream fileStream,
-                                   @QueryParam("fileKey") String fileKey
-								   /*RedirectAttributes redirectAttributes*/) throws IOException {
+    @Consumes(javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA)
+    public Response postfile(//@FormDataParam("file") FormDataBodyPart bodyPart,
+                             @QueryParam("fileKey") String fileKey,
+                             @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") FormDataContentDisposition disposition,
+                             @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") InputStream fileStream) throws IOException {
+
 
         OutputStream out = null;
 
         try {
             byte[] bytes = IOUtils.toByteArray(fileStream);
-            //System.out.println(fileStream.);
-            //byte[] bytes = fileStream.getBytes();
-
-            out = new BufferedOutputStream(new FileOutputStream(UPLOADED_FOLDER + fileKey));
+            String storageKey=  fileKey+"." + disposition.getFileName().split("[.]")[1];
+            out = new BufferedOutputStream(new FileOutputStream(UPLOADED_FOLDER + storageKey));
             out.write(bytes);
             out.flush();
             out.close();
-
-            //java.nio.file.Path path = Paths.get(UPLOADED_FOLDER + fileKey);
-            //Files.copy(fileStream, path);
-            //Files.write(path, bytes);
             com.journal.entity.File file = new com.journal.entity.File();
             file.setFileName(fileKey);
             file.setFileKey(fileKey);
@@ -226,99 +214,59 @@ public class Endpoint {
         } catch (IOException e) {
             e.printStackTrace();
             out.close();
-            return ResponseStatusCodeEnum.ERROR.getHeader();
+            return null;//ResponseStatusCodeEnum.ERROR.getHeader();
         }
 
-        return ResponseStatusCodeEnum.SUCCESS.getHeader();
+        return null;///ResponseStatusCodeEnum.SUCCESS.getHeader();
     }
 
 
-    /*@Path("/postfile")
-    @POST
-    @Consumes(javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA)
-    public Response postfile(//@FormDataParam("file") FormDataBodyPart bodyPart,
-                             @QueryParam("fileKey") String fileKey,
-                             @FormDataParam("Filedata") FormDataContentDisposition disposition,
-                             @FormDataParam("Filedata") InputStream fileStream) throws IOException {
-       // LOGGER.info("postfile CALLED WITH FILE KEY-> " + fileKey);
-        long startTime = System.currentTimeMillis();
-        //IFileStorage storage = storageResolver.resolveStorage(fileKey);
-        // no appropriate storage
-        *//*if(storage==null)
-        {
-            //Logger.getLogger(this.getClass().getName()).warning("postfile -- Storage for file key not found. fileKey = " + fileKey);
-            throw new WebApplicationException(HttpStatus.NOT_ACCEPTABLE.value());
-        }*//*
-
-        byte[] fileContents = IOUtils.toByteArray(fileStream);;
-
-        boolean result = false;
-
-        //FileKey fileKeyResolved = resolveFileKey(fileKey);
-       // if(fileKeyResolved.isResolved()){
-            String url = UPLOADED_FOLDER + fileKey;
-            OutputStream out;
-            try {
-               // LOGGER.log(Level.INFO, "url = " + url);
-
-                File file = new File(url);
-                System.out.println(url);
-                File folder = file.getParentFile();
-                if (!folder.mkdirs() && !folder.exists()) {
-             //       LOGGER.log(Level.SEVERE, "uploadFile: Cannot create folders");
-                }
-                else {
-                    out = new BufferedOutputStream(new FileOutputStream(url));
-                    out.write(fileContents);
-                    out.flush();
-                    out.close();
-                    result = true;
-                }
-            } catch (Throwable e) {
-           //     LOGGER.log(Level.SEVERE, "An exception occurred in FileSystemStorage.uploadFile: ", e);
-            }
-        *//*}
-        else {
-            LOGGER.log(Level.WARNING, "FileSystemStorage: file key not resolved: " + fileKey);
-        }*//*
-
-        //return result;
-        if(result) {
-           // LOGGER.info(String.format("postfile -- TOOK[%d millis] with FILE KEY-> %s", (System.currentTimeMillis() - startTime), fileKey));
-            return Response.ok().build();
-        } else {
-           // Logger.getLogger(this.getClass().getName()).severe("postfile -- File upload failed. fileKey = " + fileKey);
-            throw new WebApplicationException(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        }
-
-        //return fileServiceLogic.postfile(fileKey, disposition, fileStream);
-    }*/
-
-    @Path("/postfile")
-    @POST
-    @Consumes(javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA)
-    public Response postfile(//@FormDataParam("file") FormDataBodyPart bodyPart,
-                             @QueryParam("fileKey") String fileKey,
-                             @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") FormDataContentDisposition disposition,
-                             @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") InputStream fileStream) throws IOException {
-
-        //return fileServiceLogic.postfile(fileKey, disposition, fileStream);
-        return null;
-    }
     @POST
     @Path("/addArticle")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    public ArticleResponseDto addArticle (ArticleDto requestedDto) {
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ArticleResponseDto addArticle (@FormDataParam("title") String title,
+                                          @FormDataParam("content") String content,
+                                         // @FormDataParam("user") Integer userId,
+                                          @HeaderParam("token") String authToken) {
         ArticleResponseDto response = new ArticleResponseDto();
+
         response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
-        if(!EntityHelper.isSet(requestedDto.getTitle()) || !EntityHelper.isSet(requestedDto.getContent())){
+        if(!EntityHelper.isSet(title) || !EntityHelper.isSet(content)){
             response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
             return response;
         }
-        Article n = requestedDto.asEntity();
-        Article article = articleRepository.save(n);
-        if(EntityHelper.isSet(article.getId())){
+        User user = userManager.getUserByAuthenticationToken(authToken);
+        Article n = new Article(title, content, user, false, null);
+        Article article = articleManager.persist(n);
+        if (EntityHelper.isSet(article.getId())) {
+            response.setArticleDto(article.asDto());
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+        }
+        return response;
+    }
+
+    @POST
+    @Path("/editArticle")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ArticleResponseDto editArticle (@FormDataParam("title") String title,
+                                           @FormDataParam("content") String content,
+                                           @FormDataParam("articleId") Integer articleId,
+                                           @HeaderParam("token") String authToken) {
+        ArticleResponseDto response = new ArticleResponseDto();
+
+        response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+        if(!EntityHelper.isSet(title) || !EntityHelper.isSet(content) || !EntityHelper.isSet(articleId)){
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
+            return response;
+        }
+        User user = userManager.getUserByAuthenticationToken(authToken);
+        Article article = articleManager.getArticleByArticleId(articleId);
+        if(article.getUser().getId().equals(user.getId()) || GlobalConstants.USER_TYPE_ADMIN.equals(user.getType())){
+            article.setContent(content);
+            article.setTitle(title);
+            articleManager.merge(article);
             response.setArticleDto(article.asDto());
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
         }
@@ -326,17 +274,21 @@ public class Endpoint {
     }
 
     @GET
-    @Path("/getArticlesList")
+    @Path("/getMyArticlesList")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ArticlesListResponseDto getArticlesList () {
+    public ArticlesListResponseDto getArticlesList (@HeaderParam("token") String token) {
         ArticlesListResponseDto response = new ArticlesListResponseDto();
         response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
-        List<Article> articles = (List)articleRepository.findAll();
-        List<ArticleDto> articleDtos =  new ArrayList<>();
-        for(Article article: articles){
-            articleDtos.add(article.asDto());
+        User user = userManager.getUserByAuthenticationToken(token);
+        if(EntityHelper.isNotNull(user)) {
+            List<Article> articles = articleManager.getAllArticleByUserId(user.getId());
+            List<ArticleDto> articleDtos = new ArrayList<>();
+            for (Article article : articles) {
+                articleDtos.add(article.asDto());
+            }
+            response.setArticleDtos(articleDtos);
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
         }
-        response.setArticleDtos(articleDtos);
         return response;
     }
 

@@ -14,17 +14,19 @@ public class UserDto implements Serializable {
     private String name;
     private String email;
     private String token;
+    private String type;
 
     public UserDto() {
     }
 
-    public UserDto(Integer id, String username, String password, String name, String email, String token) {
+    public UserDto(Integer id, String username, String password, String name, String email, String token, String type) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
         this.token = token;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -76,8 +78,16 @@ public class UserDto implements Serializable {
         this.token = token;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public User asEntity(){
 
-        return new User(this.id, this.username, this.password, this.name, this.email, this.token);
+        return new User(this.id, this.username, this.password, this.name, this.email, this.token, this.type);
     }
 }
