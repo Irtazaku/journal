@@ -5,6 +5,7 @@ import com.journal.endpoint.Endpoint;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.wadl.internal.WadlResource;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ public class JerseyConfig extends ResourceConfig {
     	register(JacksonXMLProvider.class);
     	this.register(WadlResource.class);
     	this.register(Endpoint.class);
+		this.register(MultiPartFeature.class);
     }
 	
 	@PostConstruct
@@ -44,4 +46,5 @@ public class JerseyConfig extends ResourceConfig {
 		config.setPrettyPrint(true);
 		config.setScan(true);
 	}
+
 }

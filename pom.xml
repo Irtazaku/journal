@@ -74,6 +74,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
 
 		<!-- Thymeleaf dependency -->
 		<dependency>
@@ -92,21 +99,18 @@
 			<artifactId>jersey-bundle</artifactId>
 			<version>1.14</version>
 			<type>jar</type>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
 			<artifactId>jersey-multipart</artifactId>
 			<version>1.14</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
 			<version>1.14</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- flying saucer pdf -->

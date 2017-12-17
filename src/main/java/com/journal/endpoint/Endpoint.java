@@ -5,6 +5,8 @@ import com.journal.entity.*;
 import com.journal.util.EntityHelper;
 import com.journal.util.ResponseStatusCodeEnum;
 import org.apache.commons.io.IOUtils;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -51,18 +54,25 @@ public class Endpoint {
 	@POST
 	@Path("/signup") // Map ONLY GET Requests
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
-	@Consumes(MediaType.APPLICATION_JSON_VALUE)
+	//@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	UserResponseDto addNewUser (@QueryParam("username") String username,
-					  			@QueryParam("password") String password,
-								UserDto requestedUser) {
+	UserResponseDto addNewUser (@QueryParam("username") String username1,
+					  			@QueryParam("password") String password1,
+                                @FormDataParam("username") String username,
+                                @FormDataParam("password") String password,
+                                @FormDataParam("name") String name,
+                                @FormDataParam("email") String email
+                                //@FormDataParam("") MultiPart multiPart,
+                                //HttpServletRequest request,
+								/*UserDto requestedUser*/) {
 		UserResponseDto response = new UserResponseDto();
 		response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
-		if(!EntityHelper.isSet(requestedUser.getUsername()) || !EntityHelper.isSet(requestedUser.getUsername())){
+		/*if(!EntityHelper.isSet(requestedUser.getUsername()) || !EntityHelper.isSet(requestedUser.getUsername())){
 			response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
 			return response;
-		}
-		User n = requestedUser.asEntity();
+		}*/
+		User n = new User();//requestedUser.asEntity();
+       // User n = new User(null, email, username, password, name);
 		User user = userRepository.save(n);
 		if(EntityHelper.isSet(user.getId())){
 			response.setUserDto(user.asDto());
@@ -185,20 +195,20 @@ public class Endpoint {
     @POST
     @Path("/uploadFile")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
+    //@Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseHeaderDto singleFileUpload(//@FormDataParam("file") FormDataContentDisposition disposition,
-                                              @RequestParam("file") FileInputStream fileStream/*/,
-                                   @RequestParam("file") InputStream fileStream,*/,
+                                              //@RequestParam("file") FileInputStream fileStream,
+                                   @RequestParam("file") InputStream fileStream,
                                    @QueryParam("fileKey") String fileKey
 								   /*RedirectAttributes redirectAttributes*/) throws IOException {
 
-
+        OutputStream out = null;
 
         try {
             byte[] bytes = IOUtils.toByteArray(fileStream);
             //System.out.println(fileStream.);
             //byte[] bytes = fileStream.getBytes();
-            OutputStream out;
+
             out = new BufferedOutputStream(new FileOutputStream(UPLOADED_FOLDER + fileKey));
             out.write(bytes);
             out.flush();
@@ -215,6 +225,7 @@ public class Endpoint {
 
         } catch (IOException e) {
             e.printStackTrace();
+            out.close();
             return ResponseStatusCodeEnum.ERROR.getHeader();
         }
 
@@ -283,7 +294,17 @@ public class Endpoint {
         //return fileServiceLogic.postfile(fileKey, disposition, fileStream);
     }*/
 
+    @Path("/postfile")
+    @POST
+    @Consumes(javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA)
+    public Response postfile(//@FormDataParam("file") FormDataBodyPart bodyPart,
+                             @QueryParam("fileKey") String fileKey,
+                             @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") FormDataContentDisposition disposition,
+                             @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") InputStream fileStream) throws IOException {
 
+        //return fileServiceLogic.postfile(fileKey, disposition, fileStream);
+        return null;
+    }
     @POST
     @Path("/addArticle")
     @Produces(MediaType.APPLICATION_JSON_VALUE)

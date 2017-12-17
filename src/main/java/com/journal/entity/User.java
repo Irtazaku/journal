@@ -20,6 +20,7 @@ public class User {
     private String password;
     private String name;
     private String email;
+    private String token;
 
     public User(){
     }
@@ -30,6 +31,14 @@ public class User {
         this.username = username;
         this.password = password;
         this.name = name;
+    }
+    public User(Integer id, String email, String username, String password, String name, String token) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.token = token;
     }
 
     public Integer getId() {
@@ -44,6 +53,30 @@ public class User {
         return username;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -56,7 +89,8 @@ public class User {
         this.password = password;
     }
 
+
     public UserDto asDto() {
-        return new UserDto(this.id, this.username, this.getPassword(), this.name, this.email);
+        return new UserDto(this.id, this.username, this.getPassword(), this.name, this.email, this.token);
     }
 }
