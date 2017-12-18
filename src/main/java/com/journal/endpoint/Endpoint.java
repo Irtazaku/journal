@@ -11,6 +11,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -66,8 +67,14 @@ public class Endpoint {
 			response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
 			return response;
 		}
-		User n = new User(email, username, password, name, type);
-       User user = userManager.persist(n);
+		User user = new User(email, username, password, name, type);
+        try {
+            user = userManager.persist(user);
+        }catch (DataIntegrityViolationException e)
+        {
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.USER_ALREADY_EXIXST.getHeader());
+            return response;
+        }
 		if(EntityHelper.isSet(user.getId())){
 			response.setUserDto(user.asDto());
             response.getUserDto().setPassword(null);
@@ -81,37 +88,39 @@ public class Endpoint {
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
-    UserResponseDto addNewUser (@HeaderParam("token") String token,
-                                ResetPasswordRequestDto requestDto) {
+    UserResponseDto addNewUser (@QueryParam("token") String token,
+                                @FormDataParam("oldPassword") String oldPassword,
+                                @FormDataParam("newPassword") String newPassword) {
         UserResponseDto response = new UserResponseDto();
         response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
-        if(!EntityHelper.isSet(requestDto.getOldPassword()) || !EntityHelper.isSet(requestDto.getNewPassword()) || !EntityHelper.isSet(requestDto.getUserId())){
+        if(!EntityHelper.isSet(oldPassword) || !EntityHelper.isSet(newPassword) || !EntityHelper.isSet(token)){
             response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
             return response;
         }
-        User n = userManager.getUserByUserId(requestDto.getUserId());
-        if(!n.getPassword().equals(requestDto.getOldPassword())){
+        User n = userManager.getUserByAuthenticationToken(token);
+        if(!n.getPassword().equals(oldPassword)){
             response.setResponseHeaderDto(ResponseStatusCodeEnum.INVALID_LOGIN_DETAILS.getHeader());
             return response;
         }
-        n.setPassword(requestDto.getNewPassword());
+        n.setPassword(newPassword);
         User user = userManager.merge(n);
         if(EntityHelper.isSet(user.getId())){
             response.setUserDto(user.asDto());
+            response.getUserDto().setPassword(null);
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
         }
         return response;
     }
 
-    @GET
+    @POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	UserResponseDto getAllUsers(@QueryParam("username") String username,
-								@QueryParam("password") String password){
+	UserResponseDto getAllUsers(@FormDataParam("username") String username,
+								@FormDataParam("password") String password){
 		UserResponseDto response = new UserResponseDto();
 		response.setResponseHeaderDto(ResponseStatusCodeEnum.INVALID_LOGIN_DETAILS.getHeader());
-        if(!EntityHelper.isSet(username) || !EntityHelper.isSet(password)) {
+        if(EntityHelper.isSet(username) && EntityHelper.isSet(password)) {
             User user = userManager.getUserByUsernameAndPassword(username, password);
             if (EntityHelper.isNotNull(user)) {
 
@@ -228,7 +237,7 @@ public class Endpoint {
     public ArticleResponseDto addArticle (@FormDataParam("title") String title,
                                           @FormDataParam("content") String content,
                                          // @FormDataParam("user") Integer userId,
-                                          @HeaderParam("token") String authToken) {
+                                          @QueryParam("token") String authToken) {
         ArticleResponseDto response = new ArticleResponseDto();
 
         response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
@@ -237,7 +246,7 @@ public class Endpoint {
             return response;
         }
         User user = userManager.getUserByAuthenticationToken(authToken);
-        Article n = new Article(title, content, user, false, null);
+        Article n = new Article(title, content, user, 0, null);
         Article article = articleManager.persist(n);
         if (EntityHelper.isSet(article.getId())) {
             response.setArticleDto(article.asDto());
@@ -288,6 +297,20 @@ public class Endpoint {
             }
             response.setArticleDtos(articleDtos);
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/logout")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseHeaderDto logout (@QueryParam("token") String token) {
+        ResponseHeaderDto response = ResponseStatusCodeEnum.ERROR.getHeader();
+        User user = userManager.getUserByAuthenticationToken(token);
+        if(EntityHelper.isNotNull(user)) {
+            user.setToken(null);
+            userManager.merge(user);
+            response = ResponseStatusCodeEnum.SUCCESS.getHeader();
         }
         return response;
     }

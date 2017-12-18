@@ -15,6 +15,8 @@ public class ResponseHeaderDto implements Serializable {
     public static final String STATUS_BAD_REQUEST_TEXT = "Incorrect Request Payload.";
     public static final Integer STATUS_INVALID_LOGIN_DETAILS = 3;
     public static final String STATUS_INVALID_LOGIN_DETAILS_TEXT = "Invalid username or password.";
+    public static final Integer STATUS_USER_ALREADY_EXIXST = 4;
+    public static final String STATUS_USER_ALREADY_EXIXST_TEXT = "User already exists.";
 
     private Integer statusCode;
     private String message;

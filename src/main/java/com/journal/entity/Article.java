@@ -2,6 +2,7 @@ package com.journal.entity;
 
 
 import com.journal.dto.ArticleDto;
+import com.journal.util.ConstantsAndEnums.GlobalConstants;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,18 +36,18 @@ public class Article {
     @JoinColumn(name = "author_user_id", referencedColumnName = "id")
     private User user;
 
-    private Boolean isPublished = false;
+    private Integer status = GlobalConstants.ARTICLE_STATUS_PENDDING;
 
     private Date createdDate;
 
     public Article() {
     }
 
-    public Article(String title, String content, User user, Boolean isPublished, Date createdDate) {
+    public Article(String title, String content, User user, Integer status, Date createdDate) {
         this.title = title;
         this.content = content;
         this.user = user;
-        this.isPublished = isPublished;
+        this.status = status;
         this.createdDate = (createdDate == null) ? new Date() : createdDate;
     }
 
@@ -90,15 +91,15 @@ public class Article {
         this.user = user;
     }
 
-    public Boolean getIsPublished() {
-        return isPublished;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIsPublished(Boolean isPublished) {
-        this.isPublished = isPublished;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public ArticleDto asDto(){
-        return new ArticleDto(this.id, this.title, this.content, this.user.asDto(), this.isPublished, this.createdDate);
+        return new ArticleDto(this.id, this.title, this.content, this.user.asDto(), this.status, this.createdDate);
     }
 }

@@ -14,18 +14,18 @@ public class ArticleDto implements Serializable {
     private String title;
     private String content;
     private UserDto user;
-    private Boolean isPublished;
+    private Integer status;
     private Date createdDate;
 
     public ArticleDto() {
     }
 
-    public ArticleDto(Integer id, String title, String content, UserDto user, Boolean isPublished, Date createdDate) {
+    public ArticleDto(Integer id, String title, String content, UserDto user,Integer  status, Date createdDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.user = user;
-        this.isPublished = isPublished;
+        this.status = status;
         this.createdDate = createdDate;
     }
 
@@ -69,15 +69,16 @@ public class ArticleDto implements Serializable {
         this.user = user;
     }
 
-    public Boolean getIsPublished() {
-        return isPublished;
+
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIsPublished(Boolean isPublished) {
-        this.isPublished = isPublished;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Article asEntity(){
-        return new Article(this.title, this.content, this.user.asEntity(), this.isPublished, this.createdDate);
+        return new Article(this.title, this.content, this.user.asEntity(), this.status, this.createdDate);
     }
 }
