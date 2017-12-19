@@ -1,6 +1,8 @@
 package com.journal.entity;
 
 
+import com.journal.dto.ArticleDto;
+import com.journal.util.ConstantsAndEnums.GlobalConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +51,31 @@ public class ArticleManagerImpl implements ArticleManager {
 
         List<Article> articles = query.getResultList();
         return !articles.isEmpty() ? articles : new ArrayList<>();
+    }
+
+    @Override
+    public List<Article> getAllArticles() {
+        TypedQuery<Article> query = entityManager
+            .createNamedQuery("article.getAllArticles", Article.class)
+            .setParameter("penddingStatusId", GlobalConstants.ARTICLE_STATUS_PENDDING);
+
+        List<Article> articles = query.getResultList();
+        return !articles.isEmpty() ? articles : new ArrayList<>();
+    }
+
+    @Override
+    public List<ArticleDto> getArticleListByIds(List<Integer> articleIdList) {
+        TypedQuery<Article> query = entityManager
+                .createNamedQuery("article.getArticleListByIds", Article.class)
+                .setParameter("penddingStatusId", GlobalConstants.ARTICLE_STATUS_PENDDING)
+                .setParameter("articleIdList", articleIdList);
+
+        List<Article> articles = query.getResultList();
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        for(Article article: articles){
+            articleDtos.add(article.asDto());
+        }
+        return articleDtos;
     }
 
 }

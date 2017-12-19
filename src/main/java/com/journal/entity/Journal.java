@@ -10,7 +10,18 @@ import java.util.Date;
  * Created by Venturedive on 10/29/2017.
  */
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+@Table(name = "journals")
+@NamedQueries({
+        @NamedQuery(name = "journal.getJournalById",
+                query = " SELECT j" +
+                        " FROM Journal j " +
+                        " WHERE j.id = :journalId "),
+        @NamedQuery(name = "journal.getRecentJournals",
+                query = " SELECT j" +
+                        " FROM Journal j " +
+                        " ORDER BY j.date desc")
+})
 public class Journal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

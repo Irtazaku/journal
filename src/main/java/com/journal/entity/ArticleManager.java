@@ -1,5 +1,7 @@
 package com.journal.entity;
 
+import com.journal.dto.ArticleDto;
+
 import java.util.List;
 
 public interface ArticleManager {
@@ -11,4 +13,8 @@ public interface ArticleManager {
     Article persist(Article article);
 
     List<Article> getAllArticleByUserId(Integer userId);
+
+    List<Article> getAllArticles();
+
+    List<ArticleDto> getArticleListByIds(List<Integer> articleIdList);
 }

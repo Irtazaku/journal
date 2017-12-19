@@ -2,7 +2,7 @@ package com.journal.entity;
 
 
 import com.journal.dto.UserDto;
-import com.journal.util.AuthUtil;
+import com.journal.util.Util;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "user.getUserByUserId",
                 query = " SELECT u" +
                         " FROM User u " +
-                        " WHERE u.token = :userId "),
+                        " WHERE u.id = :userId "),
         @NamedQuery(name = "user.getUserByUsernameAndPassword",
                 query = " SELECT u" +
                         " FROM User u " +
@@ -57,7 +57,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.token = AuthUtil.generateToken();
+        this.token = Util.generateToken();
         this.type = type;
     }
     public User(Integer id, String email, String username, String password, String name, String token, String type) {

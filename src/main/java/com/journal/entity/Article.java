@@ -21,7 +21,16 @@ import java.util.Date;
         @NamedQuery(name = "article.getArticleListByUserId",
                 query = " SELECT a" +
                         " FROM Article a " +
-                        " WHERE a.user.id = :userId ")
+                        " WHERE a.user.id = :userId "),
+        @NamedQuery(name = "article.getAllArticles",
+                query = " SELECT a" +
+                        " FROM Article a " +
+                        " WHERE a.status = :penddingStatusId"),
+        @NamedQuery(name = "article.getArticleListByIds",
+                query = " SELECT a" +
+                        " FROM Article a " +
+                        " WHERE a.status = :penddingStatusId" +
+                        " and a.id in :articleIdList")
 })
 public class Article {
     @Id

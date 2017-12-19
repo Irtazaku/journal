@@ -1,7 +1,7 @@
 package com.journal.entity;
 
 
-import com.journal.util.AuthUtil;
+import com.journal.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +61,7 @@ public class UserManagerImpl implements UserManager {
         List<User> users = query.getResultList();
         if(users.size() == 1){
             User user = users.get(0);
-            user.setToken(AuthUtil.generateToken());
+            user.setToken(Util.generateToken());
             user = userRepository.save(user);
             return user;
         }
