@@ -59,16 +59,9 @@ public class GlobalConstants {
     public final static Integer IDEAL_MONTH_INT = 30;
 
     public final static String PDF_LOGO_NAME = "logo";
-    public final static String PDF_LOGO_PATH = "C:\\Users\\Venturedive\\Documents\\FYP\\journal\\src\\main\\resources\\static\\img\\logo.jpg";
-    public final static String RESOURCE_PATH = "http://localhost:";
-    public final static String YEAR_COUNT_SN = "Year";
-    public final static String YEAR_COUNT_PL = "Years";
-    public final static String MONTH_COUNT_SN = " Month";
-    public final static String MONTH_COUNT_PL = " Months";
-    public final static String HOUR_COUNT_SN = " Hour";
-    public final static String HOUR_COUNT_PL = " Hours";
     public final static String CSS_STYLE_NAME = "styleSheet";
-    public final static String CSS_STYLE_PATH = "C:\\Users\\Venturedive\\Documents\\FYP\\journal\\src\\main\\resources\\static\\css\\style.css";
+    public final static String PDF_LOGO_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//img//logo.jpg";
+    public final static String CSS_STYLE_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//css//style.css";
 
     public final static String DECIMAL_FORMATTER_CURRENCY = "###,###,###,###,##0.00";
     public final static String DECIMAL_FORMATTER_HOURS_1 = "###.#";

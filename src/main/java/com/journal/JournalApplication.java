@@ -8,7 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.WebMvcProperties;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrations;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -27,5 +31,24 @@ public class JournalApplication extends WebMvcAutoConfiguration.EnableWebMvcConf
 		super.configurePathMatch(configurer);
 		configurer.setUseRegisteredSuffixPatternMatch(false);
 		configurer.setUseSuffixPatternMatch(false);
+	}
+	@Bean
+	public ClassLoaderTemplateResolver emailTemplateResolver() {
+		ClassLoaderTemplateResolver cltr = new ClassLoaderTemplateResolver();
+		cltr.setPrefix("/dk/rfit/orderit/web/mail/");
+		cltr.setSuffix(".html");
+		cltr.setTemplateMode("HTML5");
+		cltr.setCharacterEncoding("UTF-8");
+		cltr.setOrder(3);
+		cltr.setTemplateMode("LEGACYHTML5");
+		cltr.setCacheable(true);
+		return cltr;
+	}
+
+	@Bean
+	public TemplateEngine mailTemplateEngine() {
+		SpringTemplateEngine ste = new SpringTemplateEngine();
+		ste.setTemplateResolver(emailTemplateResolver());
+		return ste;
 	}
 }

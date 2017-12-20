@@ -10,16 +10,13 @@
 <page size="A4" class="coverPage">
 	<div class="middleBlock">
 		<div class="logoBlock">
-			<img th:attr="src=${logo}" alt="VistaJet" />
+			<img th:attr="src=${logo}"/>
 		</div>
 		<div class="documentTitle">
 			<span th:text="${fileName}">[Company Name]</span>
 		</div>
 		<div class="documentDate">
 			<span th:text="${editionForMonth}">[Month]</span> <span th:text="${editionForYear}">[Year]</span>
-		</div>
-		<div class="private firpage-private">
-			[private and confidential]
 		</div>
 	</div>
 </page>

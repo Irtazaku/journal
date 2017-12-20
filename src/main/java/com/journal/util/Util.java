@@ -68,7 +68,7 @@ public class Util {
                 LOGGER.info("processed html: " + processedHtml);
                 renderer.setDocumentFromString(coverPageString);
                 renderer.layout();
-                renderer.createPDF(pdfOut, true);
+                renderer.createPDF(pdfOut, false);
                 renderer.setDocumentFromString(processedHtml);
                 renderer.layout();
                 renderer.writeNextDocument();
