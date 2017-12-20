@@ -17,6 +17,10 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -63,12 +67,20 @@ public class Util {
                 ITextRenderer renderer = new ITextRenderer();
                 renderer = loadFonts(renderer);
                 String coverPageString = templateEngine.process(GlobalConstants.AS_COVER_PAGE, ctx);
+                String contentPage = templateEngine.process(GlobalConstants.AS_INDEX_PAGE, ctx);
                 processedHtml = templateEngine.process(templateName, ctx);
                 LOGGER.info("coverPage html: " + coverPageString);
+                LOGGER.info("contentPage html: " + contentPage);
                 LOGGER.info("processed html: " + processedHtml);
+                try {
+                    generatCoverImage(coverPageString, fileName);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
                 renderer.setDocumentFromString(coverPageString);
                 renderer.layout();
                 renderer.createPDF(pdfOut, false);
+                renderer.setDocumentFromString(contentPage);
                 renderer.setDocumentFromString(processedHtml);
                 renderer.layout();
                 renderer.writeNextDocument();
@@ -114,6 +126,41 @@ public class Util {
             LOGGER.error(GlobalConstants.MSG_ERROR_FONTS_LOADING, e);
         }
         return renderer;
+    }
+    public File generatCoverImage( String html,String fileKey) throws Exception{
+
+       /* html = "<html>" +
+                "<h1>:)</h1>" +
+                "Hello World!<br>" +
+                "<img src=\"http://img0.gmodules.com/ig/images/igoogle_logo_sm.png\">" +
+                "</html>";*/
+        JLabel label = new JLabel(html);
+        label.setSize(2480 , 3508 );
+
+        BufferedImage image = new BufferedImage(
+                label.getWidth(), label.getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+
+        {
+            // paint the html to an image
+            Graphics g = image.getGraphics();
+            g.setColor(Color.WHITE);
+            label.paint(g);
+            g.dispose();
+        }
+
+        // get the byte array of the image (as jpeg)
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", baos);
+        byte[] bytes = baos.toByteArray();
+        File file = fileManager.save(bytes, fileKey.replace(".pdf", ".jpg"), FileTypeEnum.image.getKey());
+        if (EntityHelper.isSet(file.getId())) {
+            return file;
+        }
+        else {
+            LOGGER.info("Error while uploading PDF");
+            return  null;
+        }
     }
 
 

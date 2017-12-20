@@ -47,6 +47,7 @@ public class GlobalConstants {
     public final static String MSG_ERROR_FILE_UPLOAD  = "Error while uploading File. The File Service Maybe Down. Please try again later";
     public final static String MSG_ERROR_STATIC_CONTENT = "File not found with name ";
     public final static String AS_COVER_PAGE = "coverPage";
+    public final static String AS_INDEX_PAGE = "contentPage";
     public final static String PDF_TEMPLET = "mainFile";
 
 
