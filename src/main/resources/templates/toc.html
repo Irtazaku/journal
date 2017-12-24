@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style type="text/css">
+	* {
+		margin: 0px !important;
+	}
+</style>
+</head>
+<body style="margin:0; line-height: 23px">
+	<div style="text-align: center;">
+		<h1 style="font-size: 2.5rem;"><b>Table of content</b></h1>
+	</div>
+<br/>
+	<page th:if="${!#lists.isEmpty(articleTitles)}" size="A4" class="mainPage">
+		<span th:each="articleTitle,iter : ${articleTitles}">
+			<div style="margin-left: 0px !important">
+				<span style="margin-right: 10px">1.</span>
+				<span th:text="${articleTitle.articleTitle}" >This will be some large text</span>
+				<span style="float: right">1</span>
+			</div>
+		</span>
+	</page>
+</body>
+</html>

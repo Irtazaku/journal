@@ -16,6 +16,9 @@ public class MapData {
 	@Autowired
 	private DateToStringHelper dateToStringHelper;
 
+	@Autowired
+	private GlobalConstants globalConstants;
+
 	public static final Logger LOGGER = LoggerFactory.getLogger(MapData.class);
 
 	@Value("${server.port}")
@@ -54,7 +57,6 @@ public class MapData {
 			}
 			data.put("articleTitles", articleTitles);
 			data.put("articleContents", articleContents);
-			data.put("numOfTitlePerPage", GlobalConstants.numOfTitlePerPage);
 
 			LOGGER.info("dataMapping METHOD DONE -- TOOK " + (System.currentTimeMillis() - startTime) + " millis");
 			return data;
@@ -69,8 +71,10 @@ public class MapData {
 	private Map<String, Object> setStaticContent(Map<String, Object> map){
 
 		try{
-			map.put(GlobalConstants.PDF_LOGO_NAME, /*GlobalConstants.RESOURCE_PATH + serverPort + */GlobalConstants.PDF_LOGO_PATH);
-			map.put(GlobalConstants.CSS_STYLE_NAME, /*GlobalConstants.RESOURCE_PATH + serverPort + */GlobalConstants.CSS_STYLE_PATH);
+			map.put(GlobalConstants.PDF_LOGO_NAME, /*GlobalConstants.RESOURCE_PATH + serverPort + */globalConstants.PDF_LOGO_PATH);
+			map.put(GlobalConstants.CSS_STYLE_NAME, /*GlobalConstants.RESOURCE_PATH + serverPort + */globalConstants.CSS_STYLE_PATH);
+			map.put("coverback", globalConstants.PDF_COVER_BACKGROUND_PATH);
+			map.put("coverheader", globalConstants.PDF_COVER_HEADER_PATH);
 		}
 		catch(Exception e){
 			LOGGER.error(GlobalConstants.MSG_ERROR_STATIC_CONTENT + GlobalConstants.PDF_LOGO_NAME, e);

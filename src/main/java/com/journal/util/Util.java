@@ -81,6 +81,8 @@ public class Util {
                 renderer.layout();
                 renderer.createPDF(pdfOut, false);
                 renderer.setDocumentFromString(contentPage);
+                renderer.layout();
+                renderer.writeNextDocument();
                 renderer.setDocumentFromString(processedHtml);
                 renderer.layout();
                 renderer.writeNextDocument();

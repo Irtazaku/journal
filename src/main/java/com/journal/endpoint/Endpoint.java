@@ -2,7 +2,6 @@ package com.journal.endpoint;
 
 import com.journal.dto.*;
 import com.journal.entity.*;
-import com.journal.entity.File;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
 import com.journal.util.ConstantsAndEnums.ResponseStatusCodeEnum;
 import com.journal.util.EntityHelper;
@@ -12,15 +11,16 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.ws.rs.*;
-import java.io.*;
+import javax.ws.rs.core.Response;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -197,21 +197,24 @@ public class Endpoint {
 
     @GET
 	@Path("/downloadFile")
-	@Produces(MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Resource> download(@QueryParam("fileKey") String fileKey,
+	public Response download(@QueryParam("fileKey") String fileKey,
 											 @QueryParam("id") Integer fileId) throws IOException {
-
+        File file1 = new File();
 		if(fileId != null){
-			File file = fileManager.getFileById(fileId);
-			fileKey = file.getFileKey();
+			 file1 = fileManager.getFileById(fileId);
+			fileKey = file1.getFileKey();
 		}
 		java.io.File file = new java.io.File(fileKey);
+        String[] fileNameParts = fileKey.split("//");
+        String returnType= fileKey.split("[.]")[1];
+        file.renameTo(new java.io.File(fileNameParts[fileNameParts.length-1]));
 		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-
-		return ResponseEntity.ok()
+		return Response.ok(file, "applicaion/"+returnType)
+                .build();
+                /*ResponseEntity.ok()
 				.contentLength(file.length())
 				.contentType(MediaType.parseMediaType("application/octet-stream"))
-				.body(resource);
+				.body(resource);*/
 	}
 
     @Path("/postfile")

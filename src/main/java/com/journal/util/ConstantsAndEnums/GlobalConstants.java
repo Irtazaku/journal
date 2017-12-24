@@ -1,5 +1,6 @@
 package com.journal.util.ConstantsAndEnums;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,6 +20,8 @@ public class GlobalConstants {
     public static final String IMAGE_FILE_VALUE = "image//";
     public static final String JOURNAL_FILE_KEY = "journal";
     public static final String JOURNAL_FILE_VALUE = "journal//";
+
+    @Value("${path.basefile}")
     public static final String BASE_FILE_PATH = "C://journals//";
 
 
@@ -42,51 +45,22 @@ public class GlobalConstants {
     public final static String MSG_ERROR_TEMPLATE_CONVERSION = "Unable to generate byte stream - Error while preparing template for conversion to PDF";
     public final static String MSG_ERROR_PAYLOAD_MAPPING = "Unable to generate byte stream - Error occured in mapping payload";
     public final static String MSG_ERROR_FONTS_LOADING = "Unable to generate byte stream - Error in loading fonts";
-    public final static String MSG_ERROR_CONTRACT_TIMELINE = "Error in calculating contract timeline";
-    public final static String MSG_ERROR_MS_INFO = "Error in getting microservice info";
-    public final static String MSG_ERROR_FILE_UPLOAD  = "Error while uploading File. The File Service Maybe Down. Please try again later";
     public final static String MSG_ERROR_STATIC_CONTENT = "File not found with name ";
-    public final static String AS_COVER_PAGE = "coverPage";
-    public final static String AS_INDEX_PAGE = "contentPage";
-    public final static String PDF_TEMPLET = "mainFile";
+    public final static String AS_COVER_PAGE = "coverPage";/* "cover";*/
+    public final static String AS_INDEX_PAGE = "contentPage";/* "toc";*/
+    public final static String PDF_TEMPLET =   "mainPage";/*  "content";*/
 
-
-    /* Constants */
-    public final static Integer numOfTitlePerPage = 15;
-    public final static Double KM_TO_MILES = 0.6214;
-    public final static Double DEFAULT_DOUBLE_VALUE = 0.0;
-
-    public final static Double IDEAL_MONTH_DOUBLE = 30.0;
-    public final static Integer IDEAL_MONTH_INT = 30;
 
     public final static String PDF_LOGO_NAME = "logo";
     public final static String CSS_STYLE_NAME = "styleSheet";
-    public final static String PDF_LOGO_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//img//logo.jpg";
-    public final static String CSS_STYLE_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//css//style.css";
-
-    public final static String DECIMAL_FORMATTER_CURRENCY = "###,###,###,###,##0.00";
-    public final static String DECIMAL_FORMATTER_HOURS_1 = "###.#";
-    public final static String DECIMAL_FORMATTER_HOURS_2 = "####0.00";
-    public final static String DECIMAL_FORMATTER_HOURS_3 = "####0.##";
-    public final static String DECIMAL_FORMATTER_HOURS_4 = "####0.0000";
-
-    public final static Integer DECIMAL_FORMATTER_1 = 10;
-    public final static Integer DECIMAL_FORMATTER_2 = 100;
-    public final static Integer DECIMAL_FORMATTER_4 = 10000;
-
-
-
-    public static final Short REMAINING_MONTHS_PIXELS = 307;
-    public static final Short REMAINING_HOURS_PIXELS = 316;
-    public static final String MONTH_DEFAULT_TEXT = "0 Month";
-    public static final String HOUR_DEFAULT_TEXT = "0 Hour";
-    public static final Integer MONTH_DEFAULT_SIZE = MONTH_DEFAULT_TEXT.length();
-    public static final Integer HOUR_DEFAULT_SIZE = HOUR_DEFAULT_TEXT.length();
-    public static final Short PIXEL_PER_CHARACTER = 7;
-    public static final Short EXTRA_PADDING_TIMELINE = 4;
-    public static final Short EXTRA_PADDING_HOURS_TIMELINE = 10;
-    public static final Short EXTRA_PADDING_HOURS_TIMELINE_NO_HOURS_USED = 12;
-    public static final Short MAX_WIDTH = 100;
+    @Value("${path.coverbackgroudimg}")
+    public  String PDF_COVER_BACKGROUND_PATH;
+    @Value("${path.coverheaderimg}")
+    public  String PDF_COVER_HEADER_PATH;
+    @Value("${path.pdflogo}")
+    public String PDF_LOGO_PATH;
+    @Value("${path.mastercss}")
+    public String CSS_STYLE_PATH;
 
     /* Date formats */
     public static final String DF_DEFAULT_DATE_STRING = " - ";

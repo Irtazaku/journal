@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Statement</title>
+	<title>UBIT Journal</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" th:href="${styleSheet}"/>
 </head>
 <body>
 <page th:if="${!#lists.isEmpty(articleTitles)}" size="A4" class="mainPage">
-	<div class="flightLogoBlock">
-		<img th:attr="src=${logo}" alt="VistaJet"/>
-	</div>
 	<div class="companyName subheader" style="font-size:7pt;">
 		<div class="documentTitle">
 			<span th:text="${fileName}">[Company Name]</span>
@@ -24,13 +21,12 @@
 				<thead>
 					<tr style="color:#585555;">
 						<td colspan="6">
-							<span th:text="${articleTitle.articleTitle}">[articleTitle articleTitle]</span> |
-							<span th:text="${articleTitle.pageNo}">[articleTitle pageNo]</span>
+							<span th:text="${articleTitle.articleTitle}">[articleTitle articleTitle]</span>
+							<span style="float: right" th:text="${articleTitle.pageNo}">[articleTitle pageNo]</span>
 						</td>
 					</tr>
 				</thead>
 			</table>
-			<div class="newPage"></div>
 		</span>
 	</div>
 	<div class="footer" id="footer">

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>UBIT Journal</title>
+	<style type="text/css">
+	* 	{
+			margin: 0px !important;
+		}
+	</style>
+</head>
+<body style="margin:0;">
+<page size="A4" class="coverPage">
+
+		<img th:attr="src=${coverheader}" style="width: 100%;" />
+		<div th:style="|background-image: url(${coverback}); background-size: cover;|">
+			<div style="height: calc(100vh - 290px);">
+				<div style="text-align: center; margin: 0px 1in !important;">`
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<h1 style="color: #fff; font-size: 3.5rem"><b>UBIT JOURNAL</b></h1>
+					<br/>
+					<hr style="border-top: 2px solid white" />
+					<br/>
+					<h1 style="color: #fff; font-size: 2.5rem;" th:text="${fileName}"><b>This will be the title of the edition, this may be a very very very long text</b></h1>
+					<br/>
+					<h1 style="color: #fff; font-size: 1.5rem;" th:text="${editiontionFroMonthYear}">Edition: <b>December, 2017</b></h1>
+					<br/>
+					<h1 style="color: #fff; font-size: 1.5rem;">Publisher: <b>Someone ABCD</b></h1>
+				</div>
+			</div>
+		</div>
+	</page>
+</body>
+</html>
