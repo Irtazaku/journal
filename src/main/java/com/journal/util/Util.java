@@ -31,6 +31,8 @@ import java.util.UUID;
 @Component
 public class Util {
     public static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
+@Autowired
+    private GlobalConstants globalConstants;
     @Autowired
     private MapData mapData;
     @Autowired
@@ -43,8 +45,8 @@ public class Util {
         return uid.replace("-", "");
     }
 
-    public static String generateFileKey(String fileType, String fileName){
-        String fileKey = GlobalConstants.BASE_FILE_PATH + FileTypeEnum.valueOf(fileType).getValue() + fileName;
+    public String generateFileKey(String fileType, String fileName){
+        String fileKey = globalConstants.BASE_FILE_PATH + FileTypeEnum.valueOf(fileType).getValue() + fileName;
         return fileKey;
     }
 

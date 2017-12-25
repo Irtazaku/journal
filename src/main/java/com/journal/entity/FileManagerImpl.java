@@ -26,6 +26,9 @@ public class FileManagerImpl implements FileManager {
     @PersistenceContext()
     private EntityManager entityManager;
 
+	@Autowired
+    Util util;
+
     @Autowired
     private FileRepository fileRepository;
 
@@ -54,7 +57,7 @@ public class FileManagerImpl implements FileManager {
         OutputStream out = null;
         try {
             LOGGER.info("byted: " + bytes.toString() + ", fileName: " +fileName +  ", type: " +type);
-            String fileKey = Util.generateFileKey(type, fileName);
+            String fileKey = util.generateFileKey(type, fileName);
             out = new BufferedOutputStream(new FileOutputStream(fileKey));
             out.write(bytes);
             out.flush();

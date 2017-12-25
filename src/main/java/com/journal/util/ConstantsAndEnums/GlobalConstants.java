@@ -22,7 +22,7 @@ public class GlobalConstants {
     public static final String JOURNAL_FILE_VALUE = "journal//";
 
     @Value("${path.basefile}")
-    public static final String BASE_FILE_PATH = "C://journals//";
+    public static String BASE_FILE_PATH = "//root//journalRepo//fileStorage//";
 
 
     /* PDF fonts */

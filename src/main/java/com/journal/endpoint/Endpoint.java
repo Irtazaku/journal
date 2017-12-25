@@ -1,5 +1,8 @@
 package com.journal.endpoint;
 
+import javax.ws.rs.Path;
+import java.io.OutputStream;
+import java.nio.file.*;
 import com.journal.dto.*;
 import com.journal.entity.*;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
@@ -225,9 +228,13 @@ public class Endpoint {
                              @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") FormDataContentDisposition disposition,
                              @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") InputStream fileStream) throws IOException {
         try {
-            byte[] bytes = IOUtils.toByteArray(fileStream);
-            File file = fileManager.save(bytes, disposition.getFileName(), type);
-
+	String fileKey = util.generateFileKey(type, disposition.getFileName());
+            java.nio.file.Path path = Paths.get(fileKey);//check path
+            OutputStream output = Files.newOutputStream(path);
+            IOUtils.copy(fileStream, output);
+  //          byte[] bytes = IOUtils.toByteArray(fileStream);
+  //          File file = fileManager.save(bytes, disposition.getFileName(), type);
+//
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseStatusCodeEnum.ERROR.getHeader();
