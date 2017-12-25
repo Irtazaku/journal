@@ -76,6 +76,7 @@ public class Endpoint {
         }catch (DataIntegrityViolationException e)
         {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.USER_ALREADY_EXIXST.getHeader());
+            e.printStackTrace();
             return response;
         }
 		if(EntityHelper.isSet(user.getId())){
@@ -152,6 +153,7 @@ public class Endpoint {
             }
         } catch (Exception e) {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+            e.printStackTrace();
         }
         return response;
     }
@@ -167,6 +169,7 @@ public class Endpoint {
             response.setJournalDtos(journalDtos);
         } catch (Exception e) {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+            e.printStackTrace();
         }
         return response;
     }
@@ -175,7 +178,7 @@ public class Endpoint {
     @Path("/addJournal")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    public JournalResponseDto addJournalById(JournalDto journalDto){
+    public JournalResponseDto addJournal(JournalDto journalDto){
         JournalResponseDto response = new JournalResponseDto();
         try {
             if(!EntityHelper.isSet(journalDto.getName()) || EntityHelper.isNull(journalDto.getJournal())){
@@ -190,6 +193,7 @@ public class Endpoint {
             }
         } catch (Exception e) {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+            e.printStackTrace();
         }
         return response;
     }
@@ -350,7 +354,7 @@ public class Endpoint {
             }
         }catch (IOException e)
         {
-
+            e.printStackTrace();
         }
 
         return response;

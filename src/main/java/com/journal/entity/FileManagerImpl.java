@@ -71,6 +71,7 @@ public class FileManagerImpl implements FileManager {
             return file;
         } catch (Exception ex){
             out.close();
+            ex.printStackTrace();
             throw ex;
             //return null;
         }
@@ -94,6 +95,7 @@ public class FileManagerImpl implements FileManager {
             return file;
         } catch (Exception ex){
             out.close();
+            ex.printStackTrace();
             throw ex;
             //return null;
         }
