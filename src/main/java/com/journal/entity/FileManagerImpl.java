@@ -73,14 +73,12 @@ public class FileManagerImpl implements FileManager {
             out.close();
             ex.printStackTrace();
             throw ex;
-            //return null;
         }
     }
 
     @Override
     public File save(InputStream fileStream, String fileName, String type) throws IOException {
-        OutputStream out = null;
-        try {
+       try {
             LOGGER.info("byted: " + fileStream.toString() + ", fileName: " +fileName +  ", type: " +type);
 
             String fileKey = util.generateFileKey(type, fileName);
@@ -94,10 +92,8 @@ public class FileManagerImpl implements FileManager {
             file = fileRepository.save(file);
             return file;
         } catch (Exception ex){
-            out.close();
             ex.printStackTrace();
             throw ex;
-            //return null;
         }
     }
 
