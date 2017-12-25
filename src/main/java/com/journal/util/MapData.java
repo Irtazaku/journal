@@ -17,13 +17,13 @@ public class MapData {
 	private DateToStringHelper dateToStringHelper;
 
 	@Value("${path.coverbackgroudimg}")
-	public  String PDF_COVER_BACKGROUND_PATH;
+	public  String PDF_COVER_BACKGROUND_PATH="//root//journalRepo//journal//src//main//resources//static//img//cover_back.png";
 	@Value("${path.coverheaderimg}")
-	public  String PDF_COVER_HEADER_PATH;
+	public  String PDF_COVER_HEADER_PATH="//root//journalRepo//journal//src//main//resources//static//img//cover_header.png";
 	@Value("${path.pdflogo}")
-	public String PDF_LOGO_PATH;
+	public String PDF_LOGO_PATH="//root//journalRepo//journal//src//main//resources//static//img//logo.jpg";
 	@Value("${path.mastercss}")
-	public String CSS_STYLE_PATH;
+	public String CSS_STYLE_PATH="//root//journalRepo//journal//src//main//resources//static//css//style.css";
 
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MapData.class);

@@ -39,7 +39,7 @@ public class Util {
     @Autowired
     private FileManager fileManager;
     @Value("${path.basefile}")
-    public static  String BASE_FILE_PATH;
+    public static  String BASE_FILE_PATH = "//root//journalRepo//fileStorage//";
 
     public  static String generateToken(){
         String uid = java.util.UUID.randomUUID().toString();
