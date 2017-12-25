@@ -21,6 +21,9 @@ public class UserManagerImpl implements UserManager {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private Util util;
+
     //@Override
     public User getUserByAuthenticationToken(String authenticationToken) {
         TypedQuery<User> query = entityManager
@@ -61,7 +64,7 @@ public class UserManagerImpl implements UserManager {
         List<User> users = query.getResultList();
         if(users.size() == 1){
             User user = users.get(0);
-            user.setToken(Util.generateToken());
+            user.setToken(util.generateToken());
             user = userRepository.save(user);
             return user;
         }

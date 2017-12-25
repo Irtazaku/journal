@@ -16,8 +16,15 @@ public class MapData {
 	@Autowired
 	private DateToStringHelper dateToStringHelper;
 
-	@Autowired
-	private GlobalConstants globalConstants;
+	@Value("${path.coverbackgroudimg}")
+	public  String PDF_COVER_BACKGROUND_PATH;
+	@Value("${path.coverheaderimg}")
+	public  String PDF_COVER_HEADER_PATH;
+	@Value("${path.pdflogo}")
+	public String PDF_LOGO_PATH;
+	@Value("${path.mastercss}")
+	public String CSS_STYLE_PATH;
+
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MapData.class);
 
@@ -71,10 +78,10 @@ public class MapData {
 	private Map<String, Object> setStaticContent(Map<String, Object> map){
 
 		try{
-			map.put(GlobalConstants.PDF_LOGO_NAME, /*GlobalConstants.RESOURCE_PATH + serverPort + */globalConstants.PDF_LOGO_PATH);
-			map.put(GlobalConstants.CSS_STYLE_NAME, /*GlobalConstants.RESOURCE_PATH + serverPort + */globalConstants.CSS_STYLE_PATH);
-			map.put("coverback", globalConstants.PDF_COVER_BACKGROUND_PATH);
-			map.put("coverheader", globalConstants.PDF_COVER_HEADER_PATH);
+			map.put(GlobalConstants.PDF_LOGO_NAME, PDF_LOGO_PATH);
+			map.put(GlobalConstants.CSS_STYLE_NAME, CSS_STYLE_PATH);
+			map.put("coverback", PDF_COVER_BACKGROUND_PATH);
+			map.put("coverheader", PDF_COVER_HEADER_PATH);
 		}
 		catch(Exception e){
 			LOGGER.error(GlobalConstants.MSG_ERROR_STATIC_CONTENT + GlobalConstants.PDF_LOGO_NAME, e);

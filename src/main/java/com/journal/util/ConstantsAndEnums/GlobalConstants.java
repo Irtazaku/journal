@@ -1,6 +1,5 @@
 package com.journal.util.ConstantsAndEnums;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,8 +20,7 @@ public class GlobalConstants {
     public static final String JOURNAL_FILE_KEY = "journal";
     public static final String JOURNAL_FILE_VALUE = "journal//";
 
-    @Value("${path.basefile}")
-    public static final String BASE_FILE_PATH = "C://journals//";
+
 
 
     /* PDF fonts */
@@ -53,14 +51,6 @@ public class GlobalConstants {
 
     public final static String PDF_LOGO_NAME = "logo";
     public final static String CSS_STYLE_NAME = "styleSheet";
-    @Value("${path.coverbackgroudimg}")
-    public  String PDF_COVER_BACKGROUND_PATH;
-    @Value("${path.coverheaderimg}")
-    public  String PDF_COVER_HEADER_PATH;
-    @Value("${path.pdflogo}")
-    public String PDF_LOGO_PATH;
-    @Value("${path.mastercss}")
-    public String CSS_STYLE_PATH;
 
     /* Date formats */
     public static final String DF_DEFAULT_DATE_STRING = " - ";

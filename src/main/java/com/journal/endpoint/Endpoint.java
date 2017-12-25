@@ -34,7 +34,7 @@ public class Endpoint {
 	private static String UPLOADED_FOLDER = "C://journals//";
 
 	@Autowired
-    Util util;
+    private Util util;
     @Autowired
     private FileManager fileManager;
     @Autowired
@@ -226,13 +226,19 @@ public class Endpoint {
                              @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") InputStream fileStream) throws IOException {
         try {
             byte[] bytes = IOUtils.toByteArray(fileStream);
-            File file = fileManager.save(bytes, disposition.getFileName(), type);
 
-        } catch (IOException e) {
+            File file = fileManager.save(fileStream, disposition.getFileName(), type);
+            if(EntityHelper.isNotNull(file) && EntityHelper.isSet(file.getId())){
+                return ResponseStatusCodeEnum.SUCCESS.getHeader();
+            }
+            else {
+                return ResponseStatusCodeEnum.ERROR.getHeader();
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseStatusCodeEnum.ERROR.getHeader();
         }
-        return ResponseStatusCodeEnum.SUCCESS.getHeader();
     }
 
 

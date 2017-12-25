@@ -1,6 +1,7 @@
 package com.journal.entity;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface FileManager {
 
@@ -11,4 +12,6 @@ public interface FileManager {
 
     File persist(File file);
     File save(byte[] bytes, String fileName, String type) throws IOException;
+
+    File save(InputStream inputStream, String fileName, String type) throws IOException;
 }

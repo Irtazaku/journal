@@ -11,6 +11,7 @@ import com.lowagie.text.pdf.BaseFont;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -37,14 +38,16 @@ public class Util {
     private TemplateEngine templateEngine;
     @Autowired
     private FileManager fileManager;
+    @Value("${path.basefile}")
+    public static  String BASE_FILE_PATH;
 
     public  static String generateToken(){
         String uid = java.util.UUID.randomUUID().toString();
         return uid.replace("-", "");
     }
 
-    public static String generateFileKey(String fileType, String fileName){
-        String fileKey = GlobalConstants.BASE_FILE_PATH + FileTypeEnum.valueOf(fileType).getValue() + fileName;
+    public  String generateFileKey(String fileType, String fileName){
+        String fileKey = BASE_FILE_PATH + FileTypeEnum.valueOf(fileType).getValue() + fileName;
         return fileKey;
     }
 
@@ -73,7 +76,7 @@ public class Util {
                 LOGGER.info("contentPage html: " + contentPage);
                 LOGGER.info("processed html: " + processedHtml);
                 try {
-                    generatCoverImage(coverPageString, fileName);
+                    //generatCoverImage(coverPageString, fileName);
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
