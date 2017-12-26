@@ -231,7 +231,7 @@ public class Endpoint {
         try {
             byte[] bytes = IOUtils.toByteArray(fileStream);
 
-            File file = fileManager.save(fileStream, disposition.getFileName(), type);
+            File file = fileManager.save(bytes, disposition.getFileName(), type);
             if(EntityHelper.isNotNull(file) && EntityHelper.isSet(file.getId())){
                 return ResponseStatusCodeEnum.SUCCESS.getHeader();
             }
