@@ -127,6 +127,6 @@ public class User {
     }
 
     public UserDto asDto() {
-        return new UserDto(this.id, this.username, this.getPassword(), this.name, this.email, this.token, this.type);
+        return new UserDto(this.id, this.username, null, this.name, this.email, this.token, this.type);
     }
 }

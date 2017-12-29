@@ -81,7 +81,6 @@ public class Endpoint {
         }
 		if(EntityHelper.isSet(user.getId())){
 			response.setUserDto(user.asDto());
-            response.getUserDto().setPassword(null);
 			response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
 		}
 		return response;
@@ -110,7 +109,6 @@ public class Endpoint {
         User user = userManager.merge(n);
         if(EntityHelper.isSet(user.getId())){
             response.setUserDto(user.asDto());
-            response.getUserDto().setPassword(null);
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
         }
         return response;
@@ -278,6 +276,7 @@ public class Endpoint {
     public ArticleResponseDto editArticle (@FormDataParam("title") String title,
                                            @FormDataParam("content") String content,
                                            @FormDataParam("articleId") Integer articleId,
+                                           @FormDataParam("status") Integer status,
                                            @QueryParam("token") String authToken) {
         ArticleResponseDto response = new ArticleResponseDto();
 
@@ -291,6 +290,9 @@ public class Endpoint {
         if(article.getUser().getId().equals(user.getId()) || GlobalConstants.USER_TYPE_ADMIN.equals(user.getType())){
             article.setContent(content);
             article.setTitle(title);
+            if (EntityHelper.isIdSet(status)) {
+                article.setStatus(status);
+            }
             articleManager.merge(article);
             response.setArticleDto(article.asDto());
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
