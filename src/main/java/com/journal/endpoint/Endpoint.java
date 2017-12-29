@@ -301,6 +301,32 @@ public class Endpoint {
     }
 
     @GET
+    @Path("/getArticleById")
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ArticleResponseDto getArticleById (@QueryParam("token") String token,
+                                              @QueryParam("articleId") Integer articleId) {
+        ArticleResponseDto response = new ArticleResponseDto();
+        response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+        User user = userManager.getUserByAuthenticationToken(token);
+        if(EntityHelper.isNotNull(user) ) {
+            if (EntityHelper.isNotNull(articleId)) {
+                ArticleDto article = articleManager.getArticleByArticleId(articleId).asDto();
+                if(article.getUser().getId().equals(user.getId()) || GlobalConstants.USER_TYPE_ADMIN.equals(user.getType())) {
+                    response.setArticleDto(article);
+                    response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+                } else {
+                    response.setResponseHeaderDto(ResponseStatusCodeEnum.USER_NOT_AUTHORIZED.getHeader());
+                }
+            } else {
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
+            }
+        } else {
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.USER_NOT_AUTHORIZED.getHeader());
+        }
+        return response;
+    }
+
+    @GET
     @Path("/getArticlesList")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ArticlesListResponseDto getArticlesList (@QueryParam("token") String token) {
