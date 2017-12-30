@@ -21,10 +21,7 @@ import javax.ws.rs.core.Response;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Component
@@ -175,19 +172,41 @@ public class Endpoint {
     @POST
     @Path("/addJournal")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    @Consumes(MediaType.APPLICATION_JSON_VALUE)
-    public JournalResponseDto addJournal(JournalDto journalDto){
+    public @ResponseBody
+    JournalResponseDto addJournal(@QueryParam("token") String authToken,
+                                         @FormDataParam("name") String name,
+                                         @FormDataParam("Abstract") String Abstract,
+                                         @FormDataParam("coverKey") String coverKey,
+                                         @FormDataParam("articleIds") List<Integer> articleIds,
+                                         @FormDataParam("date") String date){
         JournalResponseDto response = new JournalResponseDto();
         try {
-            if(!EntityHelper.isSet(journalDto.getName()) || EntityHelper.isNull(journalDto.getJournal())){
-                response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
-                return response;
-            }
-            Journal journal= journalDto.asEntity();
-            Journal savedJournal = journalManager.persist(journal);
-            if(EntityHelper.isSet(savedJournal.getId())){
-                response.setJournalDto(savedJournal.asDto());
-                response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+            User user = userManager.getUserByAuthenticationToken(authToken);
+            if(EntityHelper.isNotNull(user) && GlobalConstants.USER_TYPE_ADMIN.equals(user.getType())){
+                List<ArticleDto> articleDtos  = articleManager.getArticleListByIds(articleIds);
+                FileDto fileDto = new FileDto();
+                try {
+                    fileDto = util.generateJournal(GlobalConstants.PDF_TEMPLET, String.format("%s.%s", name, "pdf"),
+                            articleDtos, coverKey);
+                } catch (IOException e){
+                    response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+                }
+                Journal journal = new Journal();
+                journal.setName(name);
+                journal.setAbstract(Abstract);
+                journal.setFileKey(fileDto.getFileKey());
+                journal.setDate(new Date());
+                journal.setJournal(fileDto.asEntity());
+                journal.setImage(fileManager.getFileByKeyAndType(coverKey, GlobalConstants.IMAGE_FILE_KEY));
+                journal  = journalManager.persist(journal);
+                if(EntityHelper.isSet(journal.getId())){
+                    response.setJournalDto(journal.asDto());
+                    response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+                }else {
+                    response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+                }
+            }else {
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.USER_NOT_AUTHORIZED.getHeader());
             }
         } catch (Exception e) {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
@@ -222,25 +241,28 @@ public class Endpoint {
     @Path("/postfile")
     @POST
     @Consumes(javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA)
-    public ResponseHeaderDto postfile(
+    public FileResponseDto postfile(
                              @DefaultValue("journal") @FormDataParam("type") String type,
                              @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") FormDataContentDisposition disposition,
                              @org.glassfish.jersey.media.multipart.FormDataParam("Filedata") InputStream fileStream) throws IOException {
+        FileResponseDto response = new FileResponseDto();
         try {
             byte[] bytes = IOUtils.toByteArray(fileStream);
 
             File file = fileManager.save(bytes, disposition.getFileName(), type);
             if(EntityHelper.isNotNull(file) && EntityHelper.isSet(file.getId())){
-                return ResponseStatusCodeEnum.SUCCESS.getHeader();
+                response.setFileDto(file.asDto());
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
             }
             else {
-                return ResponseStatusCodeEnum.ERROR.getHeader();
+                response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseStatusCodeEnum.ERROR.getHeader();
+            response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
+        return response;
     }
 
 
@@ -377,7 +399,7 @@ public class Endpoint {
                 articleIdList.add(1);
                 articleIdList.add(2);
                 List<ArticleDto> articleDtos  = articleManager.getArticleListByIds(articleIdList);
-                util.generateJournal(GlobalConstants.PDF_TEMPLET, "New Journal.pdf", articleDtos);
+                util.generateJournal(GlobalConstants.PDF_TEMPLET, "New Journal.pdf", articleDtos, "cover");
                 response = ResponseStatusCodeEnum.SUCCESS.getHeader();
             }
         }catch (IOException e)

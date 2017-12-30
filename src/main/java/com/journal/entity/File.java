@@ -3,16 +3,26 @@ package com.journal.entity;
 
 import com.journal.dto.FileDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Venturedive on 10/29/2017.
  */
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+@Table(name = "files")
+@NamedQueries({
+        @NamedQuery(name = "file.getFileById",
+                query = " SELECT f" +
+                        " FROM File f " +
+                        " WHERE f.id = :fileId "),
+        @NamedQuery(name = "file.getFileByKeyAndType",
+                query = " SELECT f" +
+                        " FROM File f " +
+                        " WHERE f.fileKey = :fileKey" +
+                        " and f.type = :type" +
+                        " order by f.id desc ")
+})
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -38,7 +38,7 @@ public class Journal {
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private File image;
-    @JoinColumn(name = "journal_uid", referencedColumnName = "id")
+    @JoinColumn(name = "journal_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private File journal;
     private String type;

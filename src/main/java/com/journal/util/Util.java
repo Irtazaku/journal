@@ -51,12 +51,12 @@ public class Util {
         return fileKey;
     }
 
-    public FileDto generateJournal(String templateName, String fileName, List<ArticleDto> articleDtos) throws IOException{
+    public FileDto generateJournal(String templateName, String fileName, List<ArticleDto> articleDtos, String coverKey) throws IOException{
         FileDto response = new FileDto();
         ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
         String processedHtml = null;
         /*mapData = new MapData();*/
-        Map<String,Object> map = mapData.dataMapping(articleDtos, fileName, new Date());
+        Map<String,Object> map = mapData.dataMapping(articleDtos, fileName, new Date(), coverKey);
         /*TemplateEngine templateEngine = new SpringTemplateEngine();*/
 
         Context ctx = new Context();

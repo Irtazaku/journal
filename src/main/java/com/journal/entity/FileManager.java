@@ -14,4 +14,6 @@ public interface FileManager {
     File save(byte[] bytes, String fileName, String type) throws IOException;
 
     File save(InputStream inputStream, String fileName, String type) throws IOException;
+
+    File getFileByKeyAndType(String fileKey, String Type);
 }

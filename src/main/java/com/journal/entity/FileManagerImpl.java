@@ -97,4 +97,15 @@ public class FileManagerImpl implements FileManager {
         }
     }
 
+    @Override
+    public File getFileByKeyAndType(String fileKey, String type) {
+        TypedQuery<File> query = entityManager
+                .createNamedQuery("file.getFileByKeyAndType", File.class)
+                .setParameter("fileKey", fileKey)
+                .setParameter("type", type);
+
+        List<File> files = query.getResultList();
+        return !files.isEmpty() ? files.get(0) : null;
+    }
+
 }

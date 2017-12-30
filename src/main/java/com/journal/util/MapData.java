@@ -31,7 +31,7 @@ public class MapData {
 	@Value("${server.port}")
 	private String serverPort;
 
-	public Map<String,Object> dataMapping(List<ArticleDto> articleDtos,String fileName, Date editionDate){
+	public Map<String,Object> dataMapping(List<ArticleDto> articleDtos,String fileName, Date editionDate, String coverKey){
 		LOGGER.info("dataMapping METHOD STARTED");
 		/*DateToStringHelper dateToStringHelper =new DateToStringHelper();*/
 		long startTime = System.currentTimeMillis();
@@ -40,8 +40,8 @@ public class MapData {
 		try{
 
 			data = setStaticContent(data);
-
-			data.put("fileName", fileName);
+			data.put("coverback", coverKey);
+			data.put("fileName", fileName.split("[.]")[0]);
 			String editionDateString = dateToStringHelper.summaryDateFullMonth(editionDate);
 			String[] parts = editionDateString.split("-");
 			data.put("editionForMonth", parts[0]);
@@ -80,7 +80,7 @@ public class MapData {
 		try{
 			map.put(GlobalConstants.PDF_LOGO_NAME, PDF_LOGO_PATH);
 			map.put(GlobalConstants.CSS_STYLE_NAME, CSS_STYLE_PATH);
-			map.put("coverback", PDF_COVER_BACKGROUND_PATH);
+			//map.put("coverback", PDF_COVER_BACKGROUND_PATH);
 			map.put("coverheader", PDF_COVER_HEADER_PATH);
 		}
 		catch(Exception e){
