@@ -3,6 +3,7 @@ package com.journal.entity;
 
 import com.journal.dto.ArticleDto;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
+import com.journal.util.Util;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,7 @@ public class ArticleManagerImpl implements ArticleManager {
     public Article getArticleByArticleId(Integer articleId) {
         TypedQuery<Article> query = entityManager
                 .createNamedQuery("article.getArticleByArticleId", Article.class)
+                .setParameter("notDeletedIds", Util.getNotDeletedArticleStatusIds())
                 .setParameter("articleId", articleId);
 
         List<Article> articles = query.getResultList();
@@ -50,6 +52,7 @@ public class ArticleManagerImpl implements ArticleManager {
     public List<Article> getAllArticleByUserId(Integer userId) {
         TypedQuery<Article> query = entityManager
                 .createNamedQuery("article.getArticleListByUserId", Article.class)
+                .setParameter("notDeletedIds", Util.getNotDeletedArticleStatusIds())
                 .setParameter("userId", userId);
 
         List<Article> articles = query.getResultList();
@@ -60,7 +63,7 @@ public class ArticleManagerImpl implements ArticleManager {
     public List<Article> getAllArticles() {
         TypedQuery<Article> query = entityManager
             .createNamedQuery("article.getAllArticles", Article.class)
-            .setParameter("penddingStatusId", GlobalConstants.ARTICLE_STATUS_PENDDING);
+            .setParameter("notDeletedIds", Util.getNotDeletedArticleStatusIds());
 
         List<Article> articles = query.getResultList();
         return !articles.isEmpty() ? articles : new ArrayList<>();
@@ -70,7 +73,7 @@ public class ArticleManagerImpl implements ArticleManager {
     public List<ArticleDto> getArticleListByIds(List<Integer> articleIdList) {
         TypedQuery<Article> query = entityManager
                 .createNamedQuery("article.getArticleListByIds", Article.class)
-                .setParameter("penddingStatusId", GlobalConstants.ARTICLE_STATUS_PENDDING)
+                .setParameter("notRejectedIds", Util.getNotRejectedArticleStatusIds())
                 .setParameter("articleIdList", articleIdList);
 
         List<Article> articles = query.getResultList();

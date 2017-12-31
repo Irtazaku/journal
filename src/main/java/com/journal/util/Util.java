@@ -23,10 +23,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Component
 public class Util {
@@ -174,5 +172,20 @@ public class Util {
         else {
             return String.format("attachment; filename=%s", fileName);
         }
+    }
+
+    public static List<Integer> getNotDeletedArticleStatusIds() {
+        List<Integer> notDeletedArticleStatusIds = new ArrayList<>();
+        notDeletedArticleStatusIds.add(GlobalConstants.ARTICLE_STATUS_APPROVED);
+        notDeletedArticleStatusIds.add(GlobalConstants.ARTICLE_STATUS_PENDDING);
+        notDeletedArticleStatusIds.add(GlobalConstants.ARTICLE_STATUS_PUBLISHED);
+        notDeletedArticleStatusIds.add(GlobalConstants.ARTICLE_STATUS_REJECTED);
+        return notDeletedArticleStatusIds;
+    }
+    public static List<Integer> getNotRejectedArticleStatusIds() {
+        List<Integer> notDeletedArticleStatusIds = new ArrayList<>();
+        notDeletedArticleStatusIds.add(GlobalConstants.ARTICLE_STATUS_APPROVED);
+        notDeletedArticleStatusIds.add(GlobalConstants.ARTICLE_STATUS_PENDDING);
+        return notDeletedArticleStatusIds;
     }
 }

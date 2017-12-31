@@ -16,6 +16,7 @@ public class GlobalConstants {
     public static  final Integer ARTICLE_STATUS_APPROVED = 1;
     public static  final Integer ARTICLE_STATUS_REJECTED = 2;
     public static  final Integer ARTICLE_STATUS_PUBLISHED = 3;
+    public static  final Integer ARTICLE_STATUS_DELETED = 4;
     public static final String IMAGE_FILE_KEY = "image";
     public static final String IMAGE_FILE_VALUE = "image//";
     public static final String JOURNAL_FILE_KEY = "journal";

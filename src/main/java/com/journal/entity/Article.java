@@ -17,19 +17,23 @@ import java.util.Date;
         @NamedQuery(name = "article.getArticleByArticleId",
                 query = " SELECT a" +
                         " FROM Article a " +
-                        " WHERE a.id = :articleId "),
+                        " WHERE a.id = :articleId " +
+                        " and a.status in :notDeletedIds"),
         @NamedQuery(name = "article.getArticleListByUserId",
                 query = " SELECT a" +
                         " FROM Article a " +
-                        " WHERE a.user.id = :userId "),
+                        " WHERE a.user.id = :userId " +
+                        " And a.status in :notDeletedIds" +
+                        " order by a.status asc, a.createdDate desc"),
         @NamedQuery(name = "article.getAllArticles",
                 query = " SELECT a" +
                         " FROM Article a " +
-                        " WHERE a.status = :penddingStatusId"),
+                        " WHERE a.status in :notDeletedIds" +
+                        " order by a.status asc, a.createdDate desc"),
         @NamedQuery(name = "article.getArticleListByIds",
                 query = " SELECT a" +
                         " FROM Article a " +
-                        " WHERE a.status = :penddingStatusId" +
+                        " WHERE a.status in :notRejectedIds" +
                         " and a.id in :articleIdList")
 })
 public class Article {
