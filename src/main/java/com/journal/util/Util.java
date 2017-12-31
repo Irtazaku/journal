@@ -8,8 +8,7 @@ import com.journal.util.ConstantsAndEnums.FileTypeEnum;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BaseFont;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -31,7 +30,7 @@ import java.util.UUID;
 
 @Component
 public class Util {
-    public static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
+    public static final Logger LOGGER= Logger.getLogger(MapData.class);
     @Autowired
     private MapData mapData;
     @Autowired
@@ -168,6 +167,12 @@ public class Util {
         }
     }
 
-
-
+    public String getContentDispositionHeader(String contentType, String fileName) {
+        if (GlobalConstants.CONTENT_TYPE_PDF.equalsIgnoreCase(contentType)) {
+            return String.format("inline; filename=%s", fileName);
+        }
+        else {
+            return String.format("attachment; filename=%s", fileName);
+        }
+    }
 }

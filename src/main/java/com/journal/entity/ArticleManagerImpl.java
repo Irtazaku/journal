@@ -3,6 +3,7 @@ package com.journal.entity;
 
 import com.journal.dto.ArticleDto;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,8 @@ import java.util.List;
 @Component
 @Transactional
 public class ArticleManagerImpl implements ArticleManager {
+
+    public static final Logger LOGGER= Logger.getLogger(ArticleManagerImpl.class);
 
     @PersistenceContext()
     private EntityManager entityManager;

@@ -2,8 +2,7 @@ package com.journal.util;
 
 import com.journal.dto.ArticleDto;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,8 @@ public class MapData {
 	public String CSS_STYLE_PATH="//root//journalRepo//journal//src//main//resources//static//css//style.css";
 
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MapData.class);
+	public static final Logger LOGGER= Logger.getLogger(MapData.class);
+
 
 	@Value("${server.port}")
 	private String serverPort;

@@ -59,4 +59,6 @@ public class GlobalConstants {
     public static final String DF_WITH_FULL_MONTH = "MMMM-yyyy";
     public static final String DF_PERIOD = "dd MMMM yyyy";
     public static final String DF_TIME = "(HH:mm)";
+
+    public static final String CONTENT_TYPE_PDF = "application/pdf";
 }

@@ -19,6 +19,8 @@ public class ResponseHeaderDto implements Serializable {
     public static final String STATUS_USER_ALREADY_EXIXST_TEXT = "User already exists.";
     public static final Integer STATUS_USER_NOT_AUTHORIZED = 5;
     public static final String STATUS_USER_NOT_AUTHORIZED_TEXT = "User not authorized";
+    public static final Integer STATUS_INVALID_DETAILS = 6;
+    public static final String STATUS_INVALID_DETAILS_TEXT = "Invalid request details";
 
     private Integer statusCode;
     private String message;

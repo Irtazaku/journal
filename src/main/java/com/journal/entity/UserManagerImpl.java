@@ -2,6 +2,7 @@ package com.journal.entity;
 
 
 import com.journal.util.Util;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,8 @@ import java.util.List;
 @Component
 @Transactional
 public class UserManagerImpl implements UserManager {
+
+    public static final Logger LOGGER= Logger.getLogger(UserManagerImpl.class);
 
     @PersistenceContext()
     private EntityManager entityManager;
@@ -51,6 +54,7 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public User persist(User user) {
+        LOGGER.info("UserManagerImpl.persist()");
         return userRepository.save(user);
     }
 

@@ -1,9 +1,10 @@
 package com.journal.entity;
 
 
+import com.journal.util.EntityHelper;
 import com.journal.util.Util;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Component
 @Transactional
 public class FileManagerImpl implements FileManager {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(FileManagerImpl.class);
+    public static final Logger LOGGER= Logger.getLogger(FileManagerImpl.class);
 
     @PersistenceContext()
     private EntityManager entityManager;
@@ -70,8 +70,10 @@ public class FileManagerImpl implements FileManager {
             file = fileRepository.save(file);
             return file;
         } catch (Exception ex){
-            out.close();
             ex.printStackTrace();
+            if (EntityHelper.isNotNull(out)) {
+                out.close();
+            }
             throw ex;
         }
     }
