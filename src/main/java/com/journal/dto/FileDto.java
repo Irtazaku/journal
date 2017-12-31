@@ -2,6 +2,7 @@ package com.journal.dto;
 
 
 import com.journal.entity.File;
+import com.journal.util.ConstantsAndEnums.GlobalConstants;
 
 import java.io.Serializable;
 
@@ -13,6 +14,7 @@ public class FileDto implements Serializable {
     private String fileName;
     private String fileKey;
     private String type;
+    private String url;
 
     public FileDto() {
     }
@@ -22,6 +24,7 @@ public class FileDto implements Serializable {
         this.fileName = fileName;
         this.fileKey = fileKey;
         this.type = type;
+        this.url= String.format("%s%s",GlobalConstants.FILE_DOWNLOAD_BASE_URL, fileKey);
     }
 
     public Integer getId() {
@@ -46,6 +49,7 @@ public class FileDto implements Serializable {
 
     public void setFileKey(String fileKey) {
         this.fileKey = fileKey;
+        this.url = String.format("%s%s",GlobalConstants.FILE_DOWNLOAD_BASE_URL, fileKey);
     }
 
     public String getType() {
@@ -54,6 +58,14 @@ public class FileDto implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public File asEntity() {

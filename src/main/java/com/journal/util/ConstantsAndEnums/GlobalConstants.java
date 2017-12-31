@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GlobalConstants {
 
+    public static final String FILE_DOWNLOAD_BASE_URL = "http://18.217.17.151:80/journal/1/downloadFile?fileKey=";
     public static final String USER_TYPE_ADMIN = "admin";
     public static  final String USER_TYPE_USER = "user";
     public static  final Integer ARTICLE_STATUS_PENDDING = 0;

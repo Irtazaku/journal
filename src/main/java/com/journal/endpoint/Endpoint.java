@@ -198,7 +198,7 @@ public class Endpoint {
     @Path("/getRecentJournals")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public JournalListResponseDto getRecentJournals(@QueryParam("token") String token, /*Optional*/
-                                                    @QueryParam("queryString") String queryString){
+                                                    @DefaultValue("") @QueryParam("queryString") String queryString){
         LOGGER.info(new StringBuilder("getRecentJournals() started. with params ")
                 .append("token: ").append(token)
                 .append("queryString: ").append(queryString));
