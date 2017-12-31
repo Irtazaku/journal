@@ -143,9 +143,10 @@ public class Endpoint {
     @POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	public @ResponseBody
 	UserResponseDto login(@FormDataParam("username") String username,
-								@FormDataParam("password") String password){
+                          @FormDataParam("password") String password){
         LOGGER.info(new StringBuilder("login() started. with params ")
                 .append("username: ").append(username)
                 .append("password: ").append(password));
@@ -267,7 +268,6 @@ public class Endpoint {
 
     @GET
 	@Path("/downloadFile")
-    //@Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response downloadFile(@QueryParam("token") String token, /*Optional*/
                              @QueryParam("fileKey") String fileKey,
@@ -295,7 +295,6 @@ public class Endpoint {
 
     @Path("/postfile")
     @POST
-
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public FileResponseDto postfile(
@@ -512,8 +511,9 @@ public class Endpoint {
     @POST
     @Path("/createPdf")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseHeaderDto createPdf (@QueryParam("token") String token,
-                                        List<Integer> articleIdList) {
+                                        @FormDataParam("articleIdList") List<Integer> articleIdList) {
         LOGGER.info(new StringBuilder("createPdf() started. with params ")
                 .append("token: ").append(token)
                 .append("articleIdListOfSize: ").append(articleIdList.size()));
@@ -537,6 +537,4 @@ public class Endpoint {
         LOGGER.info(String.format("createPdf() -> %s ended with isError %s.", token, response.getIsError()));
         return response;
     }
-
-
 }
