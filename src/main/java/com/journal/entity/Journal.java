@@ -20,6 +20,7 @@ import java.util.Date;
         @NamedQuery(name = "journal.getRecentJournals",
                 query = " SELECT j" +
                         " FROM Journal j " +
+                        " where LOWER(j.name) like LOWER(:queryString)" +
                         " ORDER BY j.date desc")
 })
 public class Journal {

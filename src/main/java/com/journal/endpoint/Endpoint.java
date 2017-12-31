@@ -197,12 +197,14 @@ public class Endpoint {
     @GET
     @Path("/getRecentJournals")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public JournalListResponseDto getRecentJournals(@QueryParam("token") String token /*Optional*/){
+    public JournalListResponseDto getRecentJournals(@QueryParam("token") String token, /*Optional*/
+                                                    @QueryParam("queryString") String queryString){
         LOGGER.info(new StringBuilder("getRecentJournals() started. with params ")
-                .append("token: ").append(token));
+                .append("token: ").append(token)
+                .append("queryString: ").append(queryString));
         JournalListResponseDto response = new JournalListResponseDto();
         try {
-            List<JournalDto> journalDtos = journalManager.getRecentJournals();
+            List<JournalDto> journalDtos = journalManager.getRecentJournals("%"+queryString+"%");
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
             response.setJournalDtos(journalDtos);
         } catch (Exception e) {
@@ -260,7 +262,7 @@ public class Endpoint {
             LOGGER.error(String.format("error while getRecentJournals() -> token: %s", token), e);
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
-        LOGGER.info(String.format("resetPassword() -> %s ended with isError %s.",
+        LOGGER.info(String.format("addJournal() -> %s ended with isError %s.",
                 token, response.getResponseHeaderDto().getIsError()));
         return response;
     }

@@ -13,5 +13,5 @@ public interface JournalManager {
 
     Journal persist(Journal journal);
 
-    List<JournalDto> getRecentJournals();
+    List<JournalDto> getRecentJournals(String queryString);
 }

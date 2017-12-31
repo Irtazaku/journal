@@ -37,9 +37,10 @@ public class JournalManagerImpl implements JournalManager {
     }
 
     @Override
-    public List<JournalDto> getRecentJournals() {
+    public List<JournalDto> getRecentJournals(String queryString) {
         TypedQuery<Journal> query = entityManager
-                .createNamedQuery("journal.getRecentJournals", Journal.class);
+                .createNamedQuery("journal.getRecentJournals", Journal.class)
+                .setParameter("queryString", queryString);
         List<Journal> journals = query.getResultList();
         List<JournalDto> journalDtos= new ArrayList<>();
         for(Journal journal: EntityHelper.safeList(journals)){
