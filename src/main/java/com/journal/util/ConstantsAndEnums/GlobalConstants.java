@@ -70,10 +70,10 @@ public class GlobalConstants {
     public static final String CONTENT_TYPE_PDF = "application/pdf";
     //PROD COnfig
     public static final String FILE_DOWNLOAD_BASE_URL = "http://18.217.17.151:80/journal/1/downloadFile?fileKey=";
-    public static final String PDF_COVER_BACKGROUND_PATH = "//root//journalRepo//journal//src//main//resources//static//img//cover_back.png";
-    public static final String PDF_COVER_HEADER_PATH = "//root//journalRepo//journal//src//main//resources//static//img//cover_header.png";
-    public static final String PDF_LOGO_PATH = "//root//journalRepo//journal//src//main//resources//static//img//logo.jpg";
-    public static final String CSS_STYLE_PATH = "//root//journalRepo//journal//src//main//resources//static//css//style.css";
+    public static final String PDF_COVER_BACKGROUND_PATH = "file://///root//journalRepo//journal//src//main//resources//static//img//cover_back.png";
+    public static final String PDF_COVER_HEADER_PATH = "file://///root//journalRepo//journal//src//main//resources//static//img//cover_header.png";
+    public static final String PDF_LOGO_PATH = "file://///root//journalRepo//journal//src//main//resources//static//img//logo.jpg";
+    public static final String CSS_STYLE_PATH = "file://///root//journalRepo//journal//src//main//resources//static//css//style.css";
     public static final String BASE_FILE_PATH = "//root//journalRepo//fileStorage//";
 
 
@@ -84,6 +84,6 @@ public class GlobalConstants {
     public static final String PDF_COVER_HEADER_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//img//cover_header.png";
     public static final String PDF_LOGO_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//img//logo.jpg";
     public static final String CSS_STYLE_PATH = "file:///C://Users//Venturedive//Documents//FYP//journal//src//main//resources//static//css//style.css";
-    public static final String BASE_FILE_PATH = "C://journals//";
-    public static final String JOURNAL_PUBLISHER_NAME = "UBIT JOURNALS";*/
+    public static final String BASE_FILE_PATH = "C://journals//";*/
+    public static final String JOURNAL_PUBLISHER_NAME = "UBIT JOURNALS";
 }
