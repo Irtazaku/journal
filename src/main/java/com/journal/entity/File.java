@@ -42,6 +42,12 @@ public class File {
         this.type = type;
     }
 
+    public File( String fileName, String fileKey, String type) {
+        this.fileName = fileName;
+        this.fileKey = fileKey;
+        this.type = type;
+    }
+
     public Integer getId() {
         return id;
     }

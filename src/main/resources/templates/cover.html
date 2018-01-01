@@ -13,13 +13,13 @@
 
 		<img th:attr="src=${coverheader}" style="width: 100%;" />
 		<div th:style="|background-image: url(${coverback}); background-size: cover;|">
-			<div style="height: calc(100vh - 290px);">
+			<div style="height: calc(11in - 290px);">
 				<div style="text-align: center; margin: 0px 1in !important;">`
 					<br/>
 					<br/>
 					<br/>
 					<br/>
-					<h1 style="color: #fff; font-size: 3.5rem"><b>UBIT JOURNAL</b></h1>
+					<h1 style="color: #000000; font-size: 3.5rem"><b>UBIT JOURNAL</b></h1>
 					<br/>
 					<hr style="border-top: 2px solid white" />
 					<br/>
@@ -27,7 +27,7 @@
 					<br/>
 					<h1 style="color: #fff; font-size: 1.5rem;" th:text="${editiontionFroMonthYear}">Edition: <b>December, 2017</b></h1>
 					<br/>
-					<h1 style="color: #fff; font-size: 1.5rem;">Publisher: <b>Someone ABCD</b></h1>
+					<h1 style="color: #fff; font-size: 1.5rem;" th:text="${publisher}">Publisher: <b>Someone ABCD</b></h1>
 				</div>
 			</div>
 		</div>

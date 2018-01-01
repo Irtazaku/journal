@@ -222,7 +222,7 @@ public class Endpoint {
     JournalResponseDto addJournal(@QueryParam("token") String token,
                                          @FormDataParam("name") String name,
                                          @FormDataParam("Abstract") String Abstract,
-                                         @FormDataParam("coverKey") String coverKey,
+                                         @DefaultValue(GlobalConstants.PDF_COVER_BACKGROUND_PATH) @FormDataParam("coverKey") String coverKey,
                                          @FormDataParam("articleIds") List<Integer> articleIds,
                                          @FormDataParam("date") String date){
         LOGGER.info(new StringBuilder("addJournal() started. with params ")
@@ -241,17 +241,25 @@ public class Endpoint {
                 fileDto = util.generateJournal(GlobalConstants.PDF_TEMPLET,
                         String.format("%s.%s", name, "pdf"), articleDtos, coverKey);
 
-                Journal journal = new Journal();
-                journal.setName(name);
-                journal.setAbstract(Abstract);
-                journal.setFileKey(fileDto.getFileKey());
-                journal.setDate(new Date());
-                journal.setJournal(fileDto.asEntity());
-                journal.setImage(fileManager.getFileByKeyAndType(coverKey, GlobalConstants.IMAGE_FILE_KEY));
-                journal = journalManager.persist(journal);
-                if (EntityHelper.isSet(journal.getId())) {
-                    response.setJournalDto(journal.asDto());
-                    response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+                if(EntityHelper.isNotNull(fileDto)) {
+                    Journal journal = new Journal();
+                    journal.setName(name);
+                    journal.setAbstract(Abstract);
+                    journal.setFileKey(fileDto.getFileKey());
+                    journal.setDate(new Date());
+                    journal.setJournal(fileDto.asEntity());
+                    journal.setNumberOfViews(0);
+                    journal.setPublisher(GlobalConstants.JOURNAL_PUBLISHER_NAME);
+                    if (!GlobalConstants.PDF_COVER_BACKGROUND_PATH.equals(coverKey)) {
+                        journal.setImage(fileManager.getFileByKeyAndType(coverKey, GlobalConstants.IMAGE_FILE_KEY));
+                    }
+                    journal = journalManager.persist(journal);
+                    if (EntityHelper.isSet(journal.getId())) {
+                        response.setJournalDto(journal.asDto());
+                        response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
+                    } else {
+                        response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
+                    }
                 } else {
                     response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
                 }
@@ -259,7 +267,7 @@ public class Endpoint {
                 response.setResponseHeaderDto(ResponseStatusCodeEnum.USER_NOT_AUTHORIZED.getHeader());
             }
         } catch (Exception e) {
-            LOGGER.error(String.format("error while getRecentJournals() -> token: %s", token), e);
+            LOGGER.error(String.format("error while addJournal() -> token: %s", token), e);
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("addJournal() -> %s ended with isError %s.",

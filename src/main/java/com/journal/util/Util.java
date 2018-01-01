@@ -28,7 +28,7 @@ import java.util.List;
 
 @Component
 public class Util {
-    public static final Logger LOGGER= Logger.getLogger(MapData.class);
+    public static final Logger LOGGER= Logger.getLogger(Util.class);
     @Autowired
     private MapData mapData;
     @Autowired
@@ -36,7 +36,7 @@ public class Util {
     @Autowired
     private FileManager fileManager;
     @Value("${path.basefile}")
-    public static  String BASE_FILE_PATH = "//root//journalRepo//fileStorage//";
+    public static  String BASE_FILE_PATH = GlobalConstants.BASE_FILE_PATH;
 
     public  static String generateToken(){
         String uid = java.util.UUID.randomUUID().toString();
@@ -44,7 +44,7 @@ public class Util {
     }
 
     public  String generateFileKey(String fileType, String fileName){
-        String fileKey = BASE_FILE_PATH + FileTypeEnum.valueOf(fileType).getValue() + fileName;
+        String fileKey = BASE_FILE_PATH + FileTypeEnum.valueOf(fileType).getValue() + fileName.trim().replace(" ", "_");
         return fileKey;
     }
 
@@ -52,10 +52,10 @@ public class Util {
         FileDto response = new FileDto();
         ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
         String processedHtml = null;
-        /*mapData = new MapData();*/
+        if(!GlobalConstants.PDF_COVER_BACKGROUND_PATH.equals(coverKey)){
+            coverKey = String.format("file:///%s", coverKey);
+        }
         Map<String,Object> map = mapData.dataMapping(articleDtos, fileName, new Date(), coverKey);
-        /*TemplateEngine templateEngine = new SpringTemplateEngine();*/
-
         Context ctx = new Context();
         ctx.setVariables(map);
 
@@ -90,10 +90,9 @@ public class Util {
                 LOGGER.info(GlobalConstants.MSG_SUCCESS_PDF_CONVERSION);
 
 
-                LOGGER.info(String.format("Uploading PDF to ES. FileKey = %s", fileName));
+                LOGGER.info(String.format("Uploading PDF file name = %s", fileName));
                 File file = fileManager.save(pdfOut.toByteArray(), fileName, FileTypeEnum.journal.getKey());
                 if (EntityHelper.isSet(file.getId())) {
-                    //header = ResponseStatusCodeEnum.SUCCESS_PDF_CONVERSION.getHeader();
                     response =  file.asDto();
                 }
                 else {

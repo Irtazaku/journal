@@ -16,13 +16,13 @@ public class MapData {
 	private DateToStringHelper dateToStringHelper;
 
 	@Value("${path.coverbackgroudimg}")
-	public  String PDF_COVER_BACKGROUND_PATH="//root//journalRepo//journal//src//main//resources//static//img//cover_back.png";
+	public  String PDF_COVER_BACKGROUND_PATH= GlobalConstants.PDF_COVER_BACKGROUND_PATH;
 	@Value("${path.coverheaderimg}")
-	public  String PDF_COVER_HEADER_PATH="//root//journalRepo//journal//src//main//resources//static//img//cover_header.png";
+	public  String PDF_COVER_HEADER_PATH=GlobalConstants.PDF_COVER_HEADER_PATH;
 	@Value("${path.pdflogo}")
-	public String PDF_LOGO_PATH="//root//journalRepo//journal//src//main//resources//static//img//logo.jpg";
+	public String PDF_LOGO_PATH=GlobalConstants.PDF_LOGO_PATH;
 	@Value("${path.mastercss}")
-	public String CSS_STYLE_PATH="//root//journalRepo//journal//src//main//resources//static//css//style.css";
+	public String CSS_STYLE_PATH=GlobalConstants.CSS_STYLE_PATH;
 
 
 	public static final Logger LOGGER= Logger.getLogger(MapData.class);
@@ -47,6 +47,7 @@ public class MapData {
 			data.put("editionForMonth", parts[0]);
 			data.put("editionForYear", parts[1]);
 			data.put("editiontionFroMonthYear", editionDateString);
+			data.put("publisher", GlobalConstants.JOURNAL_PUBLISHER_NAME);
 			List<Map<String, Object>> articleContents = new ArrayList<Map<String, Object>>();
 			List<Map<String, Object>> articleTitles = new ArrayList<Map<String, Object>>();
 			for(ArticleDto articleDto : articleDtos) {

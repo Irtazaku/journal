@@ -3,6 +3,7 @@ package com.journal.entity;
 
 import com.journal.dto.ArticleDto;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
+import com.journal.util.EntityHelper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -113,6 +114,6 @@ public class Article {
     }
 
     public ArticleDto asDto(){
-        return new ArticleDto(this.id, this.title, this.content, this.user.asDto(), this.status, this.createdDate);
+        return new ArticleDto(this.id, this.title, this.content, EntityHelper.isNotNull(user ) ? this.user.asDto(): null, this.status, this.createdDate);
     }
 }

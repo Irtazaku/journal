@@ -2,6 +2,7 @@ package com.journal.entity;
 
 
 import com.journal.dto.JournalDto;
+import com.journal.util.EntityHelper;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -140,6 +141,6 @@ public class Journal {
     }
 
     public JournalDto asDto() {
-        return new JournalDto(this.id, this.name, this.fileKey, this.publisher, this.date, this.numberOfViews, this.Abstract, this.image.asDto(), this.journal.asDto(), this.type);
+        return new JournalDto(this.id, this.name, this.fileKey, this.publisher, this.date, this.numberOfViews, this.Abstract, EntityHelper.isNotNull(this.image) ?this.image.asDto() : null, EntityHelper.isNotNull(this.journal) ?this.journal.asDto() : null, this.type);
     }
 }
