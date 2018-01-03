@@ -204,7 +204,7 @@ public class Endpoint {
                 .append("queryString: ").append(queryString));
         JournalListResponseDto response = new JournalListResponseDto();
         try {
-            List<JournalDto> journalDtos = journalManager.getRecentJournals("%"+queryString+"%");
+            List<JournalDto> journalDtos = journalManager.getRecentJournals("%" + queryString + "%");
             response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
             response.setJournalDtos(journalDtos);
         } catch (Exception e) {
@@ -546,5 +546,29 @@ public class Endpoint {
         }
         LOGGER.info(String.format("createPdf() -> %s ended with isError %s.", token, response.getIsError()));
         return response;
+    }
+
+    @POST
+    @Path("/dosPDF")
+    @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Produces(MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Response dosPDF(@FormDataParam("fileName") String fileName,
+                                 @FormDataParam("coverHtml") String coverHtml,
+                                 @FormDataParam("articlesHtml") List<String> articlesHtml) {
+        LOGGER.info(new StringBuilder("downloadFile() started. with params")
+                .append(" fileName: ").append(fileName)
+                .append(" coverHtml: ").append(coverHtml)
+                .append(" articlesHtmlofSize: ").append(articlesHtml.size()));
+        try {
+            byte[] pdf = util.generateRunTime(coverHtml, articlesHtml, fileName);
+            LOGGER.info(String.format("download() ended with isError %s.", Boolean.FALSE));
+            return Response.ok(pdf)
+                    .type("application/pdf")
+                    .header("Content-Disposition", String.format("inline; filename=%s", fileName))
+                    .build();
+        }catch (Exception e){
+            LOGGER.error(String.format("downloadFile() ended with isError %s.", Boolean.TRUE), e);
+            return Response.ok().status(Response.Status.BAD_REQUEST).build();
+        }
     }
 }

@@ -116,6 +116,33 @@ public class Util {
             return response;
         }
     }
+
+    public byte[] generateRunTime(String coverHtml, List<String> articles, String fileName) throws IOException {
+        ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
+        try {
+
+            ITextRenderer renderer = new ITextRenderer();
+            renderer = loadFonts(renderer);
+            renderer.setDocumentFromString(coverHtml);
+            renderer.layout();
+            renderer.createPDF(pdfOut, false);
+            for(String article: articles) {
+                renderer.setDocumentFromString(article);
+                renderer.layout();
+                renderer.writeNextDocument();
+            }
+            renderer.finishPDF();
+            LOGGER.info(GlobalConstants.MSG_SUCCESS_PDF_CONVERSION);
+
+        } catch (IllegalStateException e) {
+            LOGGER.error(GlobalConstants.MSG_ERROR_ILLEGAL_STATEMENT, e);
+        } catch (TemplateProcessingException e) {
+            LOGGER.error(GlobalConstants.MSG_ERROR_TEMPLATE_PARSING, e);
+        } catch (DocumentException e) {
+            LOGGER.error(GlobalConstants.MSG_ERROR_TEMPLATE_CONVERSION, e);
+        }
+        return pdfOut.toByteArray();
+    }
     public ITextRenderer loadFonts(ITextRenderer renderer){
         try{
             renderer.getFontResolver().flushFontFaceFonts();
