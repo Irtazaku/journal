@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.ws.rs.*;
@@ -22,7 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-
+@Controller
+@CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
 @Component
 @Path("1")
 public class Endpoint {
