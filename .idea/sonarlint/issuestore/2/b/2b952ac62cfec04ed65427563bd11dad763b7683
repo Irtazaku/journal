@@ -1,0 +1,34 @@
+
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(˜«Õ§úÿÿÿÿ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(¶âÍ©úÿÿÿÿ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(µÎ‡­úÿÿÿÿ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(‡É¥£
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(Şš»ø
+gsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(îú¾ 
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ØÙí€
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(…³…Ğ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ñÃµÏıÿÿÿÿ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ùÇ‚Ñ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ıÖµìüÿÿÿÿ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ÇÚÎœ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(½Úéøùÿÿÿÿ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ÊÓ³Ÿ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ı€«üÿÿÿÿ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ÀŠÓ¡
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ãÁ±û
+gsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ÔñÂ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(…Ùï´
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ÂöôÇşÿÿÿÿ
+msquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(ğÖ›ßÿÿÿÿÿ
+hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(û¾®¼
+[squid:S1075"ARefactor your code to get this URI from a customizable parameter.(òãéæûÿÿÿÿ
+[squid:S1075"ARefactor your code to get this URI from a customizable parameter.(ß…ó„ùÿÿÿÿ
+[squid:S1075"ARefactor your code to get this URI from a customizable parameter.(î¸şıÿÿÿÿ
+[squid:S1075"ARefactor your code to get this URI from a customizable parameter.(É…¢øÿÿÿÿ
+Vsquid:S1075"ARefactor your code to get this URI from a customizable parameter.(–¿æµ
+_squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÔñÂ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¤ ÆÈ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(†µŞ˜şÿÿÿÿ
+Tsquid:S1118":Add a private constructor to hide the implicit public one.(ßù¡úÿÿÿÿ
+2squid:S2386"Make this member "protected".(ùÇ‚Ñ
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(ˆòùæûÿÿÿÿ

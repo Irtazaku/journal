@@ -1,0 +1,21 @@
+
+osquid:S1192"ZDefine a constant instead of duplicating this literal "Error while uploading PDF" 3 times.(ãÅ
+ssquid:S3008"YRename this field "BASE_FILE_PATH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥¤ÚÇıÿÿÿÿ
+Gsquid:S1199"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
+Nsquid:S1444"4Make this "public static BASE_FILE_PATH" field final(¥¤ÚÇıÿÿÿÿ
+ysquid:S4144"_Update this method so that its implementation is not identical to "generateJournal" on line 51.(Õßë„øÿÿÿÿ
+_squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Úö…
+_squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Úö…
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ú—ÿŒüÿÿÿÿ
+ysquid:S1488"_Immediately return this expression instead of assigning it to the temporary variable "fileKey".(£œ úÿÿÿÿ
+Osquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Osquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Lsquid:S2589"7Remove this expression which always evaluates to "true"(àØ¶æ
+Lsquid:S2589"7Remove this expression which always evaluates to "true"(àØ¶æ
+>squid:S1481")Remove this unused "uuId" local variable.(Šî§†
+>squid:S1481")Remove this unused "uuId" local variable.(Šî§†
+asquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(şïËÙşÿÿÿÿ
+Msquid:S1854"8Remove this useless assignment to local variable "uuId".(Šî§†
+Msquid:S1854"8Remove this useless assignment to local variable "uuId".(Šî§†
+8squid:S1148"#Use a logger to log this exception.(Ç’Çê
+8squid:S1148"#Use a logger to log this exception.(Ç’Çê
