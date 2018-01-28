@@ -17,7 +17,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,7 +47,7 @@ public class Endpoint {
 	@GET
 	@Path("/info")
 	@Produces(MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> msInfo() {
+	public Map<String, Object> msInfo(@Context HttpServletResponse response) {
         LOGGER.info("info() started");
 		Map<String, Object> info = new HashMap<>();
 		info.put("Project", "com.journal");
@@ -62,6 +64,7 @@ public class Endpoint {
         indiviualInfoMap.put("Seat No", "EP-1349062");
         teamMemberInfoMap.put("Muhammad Furqan Chipa", indiviualInfoMap);
         info.put("Team Members", teamMemberInfoMap);
+        response.setHeader("Access-Control-Allow-Origin", "*");
 		return info;
 	}
 
@@ -74,7 +77,8 @@ public class Endpoint {
                                 @FormDataParam("password") String password,
                                 @FormDataParam("name") String name,
                                 @FormDataParam("email") String email,
-                                @DefaultValue(GlobalConstants.USER_TYPE_USER) @FormDataParam("type") String type) {
+                                @DefaultValue(GlobalConstants.USER_TYPE_USER) @FormDataParam("type") String type,
+                                @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("addNewUser() started. with params ")
                 .append("username: ").append(username)
                 .append("password: ").append(password)
@@ -99,6 +103,7 @@ public class Endpoint {
             }
         }
         LOGGER.info(String.format("addNewUser() ended with isError %s.",  response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
 		return response;
 	}
 
@@ -108,8 +113,9 @@ public class Endpoint {
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public @ResponseBody
     UserResponseDto resetPassword (@QueryParam("token") String token,
-                                @FormDataParam("oldPassword") String oldPassword,
-                                @FormDataParam("newPassword") String newPassword) {
+                                   @FormDataParam("oldPassword") String oldPassword,
+                                   @FormDataParam("newPassword") String newPassword,
+                                   @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("resetPassword() started. with params ")
                 .append("token: ").append(token)
                 .append("oldPassword: ").append(oldPassword)
@@ -138,6 +144,7 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("resetPassword() -> %s ended with isError %s.", token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -147,7 +154,8 @@ public class Endpoint {
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	public @ResponseBody
 	UserResponseDto login(@FormDataParam("username") String username,
-                          @FormDataParam("password") String password){
+                          @FormDataParam("password") String password,
+                          @Context HttpServletResponse responses){
         LOGGER.info(new StringBuilder("login() started. with params ")
                 .append("username: ").append(username)
                 .append("password: ").append(password));
@@ -165,6 +173,7 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.BAD_REQUEST.getHeader());
         }
         LOGGER.info(String.format("login() ended with isError %s.", response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
 		return response;
 	}
 
@@ -174,7 +183,8 @@ public class Endpoint {
     @Path("/getJournalById")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public JournalResponseDto getJournalById(@QueryParam("journalId") Integer journalId,
-                                             @QueryParam("token") String token /*Optional*/){
+                                             @QueryParam("token") String token /*Optional*/,
+                                             @Context HttpServletResponse responses){
         LOGGER.info(new StringBuilder("getJournalById() started. with params ")
                 .append("journalId: ").append(journalId)
                 .append("token: ").append(token));
@@ -192,6 +202,7 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("getJournalById() -> %s ended with isError %s.", token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -199,7 +210,8 @@ public class Endpoint {
     @Path("/getRecentJournals")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public JournalListResponseDto getRecentJournals(@QueryParam("token") String token, /*Optional*/
-                                                    @DefaultValue("") @QueryParam("queryString") String queryString){
+                                                    @DefaultValue("") @QueryParam("queryString") String queryString,
+                                                    @Context HttpServletResponse responses){
         LOGGER.info(new StringBuilder("getRecentJournals() started. with params ")
                 .append("token: ").append(token)
                 .append("queryString: ").append(queryString));
@@ -213,6 +225,7 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("getJournalById() -> %s ended with isError %s.", token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -221,11 +234,12 @@ public class Endpoint {
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     JournalResponseDto addJournal(@QueryParam("token") String token,
-                                         @FormDataParam("name") String name,
-                                         @FormDataParam("Abstract") String Abstract,
-                                         @DefaultValue(GlobalConstants.PDF_COVER_BACKGROUND_PATH) @FormDataParam("coverKey") String coverKey,
-                                         @FormDataParam("articleIds") List<Integer> articleIds,
-                                         @FormDataParam("date") String date){
+                                  @FormDataParam("name") String name,
+                                  @FormDataParam("Abstract") String Abstract,
+                                  @DefaultValue(GlobalConstants.PDF_COVER_BACKGROUND_PATH) @FormDataParam("coverKey") String coverKey,
+                                  @FormDataParam("articleIds") List<Integer> articleIds,
+                                  @FormDataParam("date") String date,
+                                  @Context HttpServletResponse responses){
         LOGGER.info(new StringBuilder("addJournal() started. with params ")
                 .append("token: ").append(token)
                 .append("name: ").append(name)
@@ -273,6 +287,7 @@ public class Endpoint {
         }
         LOGGER.info(String.format("addJournal() -> %s ended with isError %s.",
                 token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -281,8 +296,9 @@ public class Endpoint {
 	@Path("/downloadFile")
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response downloadFile(@QueryParam("token") String token, /*Optional*/
-                             @QueryParam("fileKey") String fileKey,
-                             @QueryParam("id") Integer fileId) {
+                                 @QueryParam("fileKey") String fileKey,
+                                 @QueryParam("id") Integer fileId,
+                                 @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("downloadFile() started. with params ")
                 .append("token: ").append(token)
                 .append("fileKey: ").append(fileKey)
@@ -312,12 +328,14 @@ public class Endpoint {
                 default:
                     fileType = String.format("applicaion/%s", returnType);
             }
+            responses.setHeader("Access-Control-Allow-Origin", "*");
             return Response.ok(file)
                     .type(fileType)
                     .header("Content-Disposition", String.format("inline; filename=%s", document.getFileName()))
                     .build();
         }catch (Exception e){
             LOGGER.error(String.format("downloadFile() -> %s ended with isError %s.", token, Boolean.TRUE), e);
+            responses.setHeader("Access-Control-Allow-Origin", "*");
             return Response.ok().status(Response.Status.NOT_FOUND).build();
         }
 	}
@@ -330,7 +348,8 @@ public class Endpoint {
                              @DefaultValue(GlobalConstants.IMAGE_FILE_KEY) @FormDataParam("type") String type,
                              @QueryParam("token") String token,
                              @FormDataParam("Filedata") FormDataContentDisposition disposition,
-                             @FormDataParam("Filedata") InputStream fileStream) throws IOException {
+                             @FormDataParam("Filedata") InputStream fileStream,
+                             @Context HttpServletResponse responses) throws IOException {
         LOGGER.info(new StringBuilder("postfile() started. with params ")
                 .append("token: ").append(token)
                 .append("Filedata: ").append(EntityHelper.isNotNull(disposition) ? disposition.getFileName(): ""));
@@ -354,6 +373,7 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("postfile() -> %s ended with isError %s.", token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -364,7 +384,8 @@ public class Endpoint {
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public ArticleResponseDto addArticle (@FormDataParam("title") String title,
                                           @FormDataParam("content") String content,
-                                          @QueryParam("token") String authToken) {
+                                          @QueryParam("token") String authToken,
+                                          @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("addArticle() started. with params ")
                 .append("authToken: ").append(authToken)
                 .append("title: ").append(title)
@@ -394,6 +415,7 @@ public class Endpoint {
         }
 
         LOGGER.info(String.format("addArticle() -> %s ended with isError %s.", authToken, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -405,7 +427,8 @@ public class Endpoint {
                                            @FormDataParam("content") String content,
                                            @FormDataParam("articleId") Integer articleId,
                                            @FormDataParam("status") Integer status,
-                                           @QueryParam("token") String authToken) {
+                                           @QueryParam("token") String authToken,
+                                           @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("editArticle() started. with params ")
                 .append("authToken: ").append(authToken)
                 .append("title: ").append(title)
@@ -442,6 +465,7 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("editArticle() -> %s ended with isError %s.", authToken, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -449,7 +473,8 @@ public class Endpoint {
     @Path("/getArticleById")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     public ArticleResponseDto getArticleById (@QueryParam("token") String token,
-                                              @QueryParam("articleId") Integer articleId) {
+                                              @QueryParam("articleId") Integer articleId,
+                                              @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("getArticleById() started. with params ")
                 .append("token: ").append(token)
                 .append("articleId: ").append(articleId));
@@ -476,13 +501,15 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("getArticleById() -> %s ended with isError %s.", token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
     @GET
     @Path("/getArticlesList")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ArticlesListResponseDto getArticlesList (@QueryParam("token") String token) {
+    public ArticlesListResponseDto getArticlesList (@QueryParam("token") String token,
+                                                    @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("getArticlesList() started. with params ")
                 .append("token: ").append(token));
         ArticlesListResponseDto response = new ArticlesListResponseDto();
@@ -510,13 +537,15 @@ public class Endpoint {
             response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());
         }
         LOGGER.info(String.format("getArticlesList() -> %s ended with isError %s.", token, response.getResponseHeaderDto().getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
     @GET
     @Path("/logout")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseHeaderDto logout (@QueryParam("token") String token) {
+    public ResponseHeaderDto logout (@QueryParam("token") String token,
+                                     @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("logout() started. with params ")
                 .append("token: ").append(token));
         ResponseHeaderDto response;
@@ -534,6 +563,7 @@ public class Endpoint {
             response = ResponseStatusCodeEnum.ERROR.getHeader();
         }
         LOGGER.info(String.format("logout() -> %s ended with isError %s.", token, response.getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -542,7 +572,8 @@ public class Endpoint {
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseHeaderDto createPdf (@QueryParam("token") String token,
-                                        @FormDataParam("articleIdList") List<Integer> articleIdList) {
+                                        @FormDataParam("articleIdList") List<Integer> articleIdList,
+                                        @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("createPdf() started. with params ")
                 .append("token: ").append(token)
                 .append("articleIdListOfSize: ").append(articleIdList.size()));
@@ -564,6 +595,7 @@ public class Endpoint {
             response = ResponseStatusCodeEnum.ERROR.getHeader();
         }
         LOGGER.info(String.format("createPdf() -> %s ended with isError %s.", token, response.getIsError()));
+        responses.setHeader("Access-Control-Allow-Origin", "*");
         return response;
     }
 
@@ -572,8 +604,9 @@ public class Endpoint {
     @Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
     @Produces(MediaType.MULTIPART_FORM_DATA_VALUE)
     public Response dosPDF(@FormDataParam("fileName") String fileName,
-                                 @FormDataParam("coverHtml") String coverHtml,
-                                 @FormDataParam("articlesHtml") List<String> articlesHtml) {
+                           @FormDataParam("coverHtml") String coverHtml,
+                           @FormDataParam("articlesHtml") List<String> articlesHtml,
+                           @Context HttpServletResponse responses) {
         LOGGER.info(new StringBuilder("downloadFile() started. with params")
                 .append(" fileName: ").append(fileName)
                 .append(" coverHtml: ").append(coverHtml)
@@ -581,12 +614,14 @@ public class Endpoint {
         try {
             byte[] pdf = util.generateRunTime(coverHtml, articlesHtml, fileName);
             LOGGER.info(String.format("download() ended with isError %s.", Boolean.FALSE));
+            responses.setHeader("Access-Control-Allow-Origin", "*");
             return Response.ok(pdf)
                     .type("application/pdf")
                     .header("Content-Disposition", String.format("inline; filename=%s", fileName))
                     .build();
         }catch (Exception e){
             LOGGER.error(String.format("downloadFile() ended with isError %s.", Boolean.TRUE), e);
+            responses.setHeader("Access-Control-Allow-Origin", "*");
             return Response.ok().status(Response.Status.BAD_REQUEST).build();
         }
     }
