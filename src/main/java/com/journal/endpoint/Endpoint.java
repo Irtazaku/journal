@@ -581,9 +581,6 @@ public class Endpoint {
         try {
             User user = userManager.getUserByAuthenticationToken(token);
             if(EntityHelper.isNotNull(user) && GlobalConstants.USER_TYPE_ADMIN.equals(user.getType())) {
-
-                articleIdList.add(1);
-                articleIdList.add(2);
                 List<ArticleDto> articleDtos  = articleManager.getArticleListByIds(articleIdList);
                 util.generateJournal(GlobalConstants.PDF_TEMPLET, "New Journal.pdf", articleDtos, "cover");
                 response = ResponseStatusCodeEnum.SUCCESS.getHeader();
