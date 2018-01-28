@@ -331,7 +331,7 @@ public class Endpoint {
             responses.setHeader("Access-Control-Allow-Origin", "*");
             return Response.ok(file)
                     .type(fileType)
-                    .header("Content-Disposition", String.format("inline; filename=%s", document.getFileName()))
+                    .header("Content-Disposition", String.format("attachment; filename=%s", document.getFileName()))
                     .build();
         }catch (Exception e){
             LOGGER.error(String.format("downloadFile() -> %s ended with isError %s.", token, Boolean.TRUE), e);
