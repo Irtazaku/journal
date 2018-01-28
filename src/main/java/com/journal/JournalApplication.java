@@ -37,7 +37,7 @@ public class JournalApplication extends WebMvcAutoConfiguration.EnableWebMvcConf
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**");
+		registry.addMapping("*://*/*");
 	}
 
 	@Bean
