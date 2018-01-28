@@ -294,11 +294,29 @@ public class Endpoint {
             if (fileId != null) {
                 document = fileManager.getFileById(fileId);
                 fileKey = document.getFileKey();
+            } else {
+                document = fileManager.getFileByKey(fileKey);
             }
+
             java.io.File file = new java.io.File(fileKey);
             String returnType = fileKey.split("[.]")[1];
             LOGGER.info(String.format("download() -> %s ended with isError %s.", token, Boolean.FALSE));
-            return Response.ok(file, String.format("applicaion/%s", returnType))
+            /*return Response.ok(file, String.format("applicaion/%s", returnType))
+                    .build();*/
+            String fileType;
+            switch (document.getType()){
+                case GlobalConstants.IMAGE_FILE_KEY:
+                    fileType = String.format("image/%s", returnType);
+                    break;
+                case GlobalConstants.JOURNAL_FILE_KEY:
+                    fileType = "application/pdf";
+                    break;
+                default:
+                    fileType = String.format("applicaion/%s", returnType);
+            }
+            return Response.ok(file)
+                    .type(fileType)
+                    .header("Content-Disposition", String.format("inline; filename=%s", document.getFileName()))
                     .build();
         }catch (Exception e){
             LOGGER.error(String.format("downloadFile() -> %s ended with isError %s.", token, Boolean.TRUE), e);

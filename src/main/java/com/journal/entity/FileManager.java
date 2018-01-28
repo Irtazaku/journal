@@ -16,4 +16,6 @@ public interface FileManager {
     File save(InputStream inputStream, String fileName, String type) throws IOException;
 
     File getFileByKeyAndType(String fileKey, String Type);
+
+    File getFileByKey(String fileKey);
 }

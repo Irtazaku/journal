@@ -50,12 +50,13 @@ public class MapData {
 			data.put("publisher", GlobalConstants.JOURNAL_PUBLISHER_NAME);
 			List<Map<String, Object>> articleContents = new ArrayList<Map<String, Object>>();
 			List<Map<String, Object>> articleTitles = new ArrayList<Map<String, Object>>();
+			Integer counter = 1;
 			for(ArticleDto articleDto : articleDtos) {
 				Map<String, Object> articleContent = new HashMap<String, Object>();
 				Map<String, Object> articleTitle = new HashMap<String, Object>();
 
 				articleTitle.put("articleTitle", articleDto.getTitle());
-				articleTitle.put("pageNo", 1);
+				articleTitle.put("serialNumber", counter++);
 				articleContent.put("articleContent", articleDto.getContent());
 				articleContent.put("articleAuthor", articleDto.getUser().getName());
 				articleContent.put("articleTitle", articleDto.getTitle());

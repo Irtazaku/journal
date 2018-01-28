@@ -21,6 +21,11 @@ import javax.persistence.*;
                         " FROM File f " +
                         " WHERE f.fileKey = :fileKey" +
                         " and f.type = :type" +
+                        " order by f.id desc "),
+        @NamedQuery(name = "file.getFileByKey",
+                query = " SELECT f" +
+                        " FROM File f " +
+                        " WHERE f.fileKey = :fileKey" +
                         " order by f.id desc ")
 })
 public class File {

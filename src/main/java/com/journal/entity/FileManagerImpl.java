@@ -110,4 +110,15 @@ public class FileManagerImpl implements FileManager {
         return !files.isEmpty() ? files.get(0) : null;
     }
 
+    @Override
+    public File getFileByKey(String fileKey) {
+        TypedQuery<File> query = entityManager
+                .createNamedQuery("file.getFileByKey", File.class)
+                .setParameter("fileKey", fileKey);
+
+        List<File> files = query.getResultList();
+        return !files.isEmpty() ? files.get(0) : null;
+    }
+
+
 }

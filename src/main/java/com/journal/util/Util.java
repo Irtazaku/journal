@@ -7,7 +7,6 @@ import com.journal.entity.FileManager;
 import com.journal.util.ConstantsAndEnums.FileTypeEnum;
 import com.journal.util.ConstantsAndEnums.GlobalConstants;
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.BaseFont;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -146,9 +145,6 @@ public class Util {
     public ITextRenderer loadFonts(ITextRenderer renderer){
         try{
             renderer.getFontResolver().flushFontFaceFonts();
-            for(String font : GlobalConstants.PDF_FONT_FAMILIES){
-                renderer.getFontResolver().addFont(font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            }
         }
         catch (Exception e) {
             LOGGER.error(GlobalConstants.MSG_ERROR_FONTS_LOADING, e);
