@@ -271,6 +271,7 @@ public class Endpoint {
                     journal = journalManager.persist(journal);
                     if (EntityHelper.isSet(journal.getId())) {
                         response.setJournalDto(journal.asDto());
+                        articleManager.updateArticlesStatus(articleIds, GlobalConstants.ARTICLE_STATUS_PUBLISHED);
                         response.setResponseHeaderDto(ResponseStatusCodeEnum.SUCCESS.getHeader());
                     } else {
                         response.setResponseHeaderDto(ResponseStatusCodeEnum.ERROR.getHeader());

@@ -79,11 +79,17 @@ public class ArticleManagerImpl implements ArticleManager {
         List<Article> articles = query.getResultList();
         List<ArticleDto> articleDtos = new ArrayList<>();
         for(Article article: articles){
-            article.setStatus(GlobalConstants.ARTICLE_STATUS_PUBLISHED);
-            merge(article);
             articleDtos.add(article.asDto());
         }
         return articleDtos;
+    }
+
+    @Override
+    public void updateArticlesStatus(List<Integer> articleIds, Integer status) {
+        entityManager.createNamedQuery("article.updateArticleStatus")
+                .setParameter("status", status)
+                .setParameter("idList", articleIds)
+                .executeUpdate();
     }
 
 }

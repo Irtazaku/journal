@@ -35,7 +35,9 @@ import java.util.Date;
                 query = " SELECT a" +
                         " FROM Article a " +
                         " WHERE a.status in :notRejectedIds" +
-                        " and a.id in :articleIdList")
+                        " and a.id in :articleIdList"),
+        @NamedQuery(name = "article.updateArticleStatus",
+                query = "update Article a set a.status = :status where a.id in :idList")
 })
 public class Article {
     @Id

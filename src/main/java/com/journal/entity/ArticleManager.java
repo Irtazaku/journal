@@ -17,4 +17,6 @@ public interface ArticleManager {
     List<Article> getAllArticles();
 
     List<ArticleDto> getArticleListByIds(List<Integer> articleIdList);
+
+    void updateArticlesStatus(List<Integer> articleIds, Integer status);
 }
